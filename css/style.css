@@ -19,13 +19,16 @@ a {
 }
 
 #left {
-    width: 33%;
+    width: 30%;
     margin-right: 1.5%;
     border: 1px solid black;
+    padding: 30px;
+    text-align: center;
+    overflow: scroll;
 }
 
 #right {
-    width: 65%;
+    width: 68%;
     border: 1px solid black;
 }
 
@@ -34,4 +37,14 @@ a {
     height: 27vh;
     width: 100%;
     border: 1px solid black;
+}
+
+.draggable-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.spacing {
+    width: 30px;
+    display: inline-block;
 }
