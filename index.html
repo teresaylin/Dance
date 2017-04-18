@@ -7,28 +7,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src='js/jquery-ui.min.js'></script>
     <script>
+
+    // var formationX = parseInt($("#right").offset().left, 10);
+    // var formationY = parseInt($("#right").offset().top, 10);
+    var formationX;
+    var formationY;
+
     $(function() {
+        formationX = parseInt($("#right").offset().left, 10);
+        formationY = parseInt($("#right").offset().top, 10);
         $(".draggable-icon").draggable({
             revert: "invalid",
             scroll: false,
             stack: ".draggable-icon",
             helper: "clone",
-            appendTo: "#main"
+            appendTo: "#main",
+            start: function(event, ui) {
+                // var dropped = ui.draggable.clone();
+                // var dropped = ui.draggable;
+                var mouseX = parseInt(event.pageX);
+                var mouseY = parseInt(event.pageY);
+                var currentX = parseInt($(dropped).offset().left, 10);
+                var currentY = parseInt($(dropped).offset().top, 10);
+                var deltaX = mouseX - currentX;
+                var deltaY = mouseY - currentY;
+                $(dropped).css({'top': '+=' + deltaY, 'left': '+=' + deltaX});
+                $(dropped).css('position', 'absolute');
+            }
         });
         $("#right").droppable({
             accept: ".draggable-icon",
             drop: function(event, ui) {
-                var dropped = ui.draggable.clone();
-                // console.log(this);
-                // console.log(dropped);
+                // var dropped = ui.draggable.clone();
                 // console.log(event);
-                $(dropped).appendTo("#right");
-                $(dropped).addClass("formation-icon");
-                // set css location
+                // $(dropped).appendTo("#right");
+                // $(dropped).addClass("formation-icon");
+                // var positionX = parseInt(event.pageX);
+                // var positionY = parseInt(event.pageY);
+                // var deltaX = positionX - formationX;
+                // var deltaY = positionY - formationY;
+                // $(dropped).css('position', 'absolute');
+                // $(dropped).css({'top': '+=' + deltaY, 'left': '+=' + deltaX});
+                // // set css location
+                // console.log('formation location: ' + formationX + ' ' + formationY);
+                // console.log('position of drop: ' + positionX + ' ' + positionY);
+                // console.log('delta: ' +  deltaX + " " + deltaY);
             }
         });
         // implement draggable for icons in the formation window
+    });
 
+    $(".draggable-icon").on("dragstart", function(event, ui) {
+        var dropped = ui.draggable.clone();
+        var mouseX = parseInt(event.pageX);
+        var mouseY = parseInt(event.pageY);
+        var currentX = parseInt($(dropped).offset().left, 10);
+        var currentY = parseInt($(dropped).offset().top, 10);
+        var deltaX = mouseX - currentX;
+        var deltaY = mouseY - currentY;
+        $(dropped).css({'top': '+=' + deltaY, 'left': '+=' + deltaX});
+        $(dropped).css('position', 'absolute');
     });
 
     </script>
