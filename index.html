@@ -47,6 +47,8 @@
         // implement draggable for icons in the formation window
     });
 
+    
+
     </script>
 
     <script> 
@@ -69,6 +71,15 @@
 
       frames.appendChild(slide);
       frames.appendChild(addSlide);
+    });
+
+    $(document).on('click',".redBox", function(evt){
+      var slide = evt.target.parentNode;
+      while(slide.className !== "slide"){
+        slide = slide.parentNode;
+      }
+      slide.id = "remove";
+      $("#remove").remove();
     });
 
     </script>

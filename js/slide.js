@@ -20,9 +20,9 @@ generateSlideStub = function(){
 	p3.style.top  = "45px";
 	p3.style.left = "120px";
 
-	//slide.appendChild(p1);
-	//slide.appendChild(p2);
-	//slide.appendChild(p3);
+	slide.appendChild(p1);
+	slide.appendChild(p2);
+	slide.appendChild(p3);
 
 	return slide;
 }
@@ -31,9 +31,6 @@ generateX = function(){
 	var redBox = document.createElement("DIV");
 	redBox.className = "redBox";
 
-	var span = document.createElement("SPAN");
-	span.innerHTML = "X";
-	redBox.appendChild(span);
 	return redBox;
 }
 
