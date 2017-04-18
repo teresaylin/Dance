@@ -116,3 +116,14 @@ a {
   top: 17px;
   width: 50px;
 }
+
+
+#play{
+  height:60px;
+  width: 60px;
+  border: none;
+  background-size: 50% 50%;
+  background-position: center;
+}
+.play{background: url('../images/play-image.png') no-repeat;}
+.pause{background: url('../images/pause-image.png') no-repeat;}
