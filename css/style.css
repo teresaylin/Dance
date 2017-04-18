@@ -1,7 +1,5 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 a {
@@ -9,6 +7,8 @@ a {
 }
 
 .nav {
+    width: 1400px;
+    margin: auto;
     height: 50px;
     padding-bottom: 3px;
 }
@@ -18,17 +18,19 @@ a {
 }
 
 #left {
-    width: 30%;
+    width: 400px;
     height: 510px;
-    margin-right: 1.5%;
+    margin-right: 20px;
     border: 1px solid #537E8C;
     padding-top: 30px;
     text-align: center;
     overflow: scroll;
+    margin: auto;
 }
 
 #right {
-    width: 68%;
+    width: 980px;
+    margin: auto;
 }
 
 #right-top {
@@ -47,10 +49,14 @@ a {
 }
 
 #frames {
+    margin: auto;
     margin-top: 20px;
+    padding-left: 20px;
     height: 150px;
-    width: 100%;
+    width: 1380px;
     border: 1px solid #537E8C;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .draggable-icon {
@@ -67,7 +73,7 @@ a {
   height: 120px;
   width: 180px;
   margin-top: 2vh;
-  margin-left: 2vh;
+  margin-right: 20px;
   border: 1px solid #537E8C;
   display:inline-block;
 }
