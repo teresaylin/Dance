@@ -107,11 +107,35 @@ a {
 
 
 #play{
-  height:60px;
-  width: 60px;
+  margin-top: 10px;
+  height:40px;
+  width: 40px;
   border: none;
+  float: left;
   background-size: 50% 50%;
   background-position: center;
 }
 .play{background: url('../images/play-image.png') no-repeat;}
 .pause{background: url('../images/pause-image.png') no-repeat;}
+
+
+
+
+#audioplayerbar{
+  width: 700px;
+  height: 20px;
+  background: rgba(0,0,0,.2);
+  margin-top: 20px;
+  float: left;
+  border-radius: 15px;
+}
+
+
+#playmarker{
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-top: 1px;
+  background: black;
+}
