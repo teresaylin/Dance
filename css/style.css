@@ -34,7 +34,7 @@ a {
 
 #frames {
     margin-top: 3vh;
-    height: 27vh;
+    height: 24vh;
     width: 100%;
     border: 1px solid black;
 }
@@ -47,4 +47,40 @@ a {
 .spacing {
     width: 30px;
     display: inline-block;
+}
+
+.slide {
+  height: 20vh;
+  width: 22vh;
+  margin-top: 2vh;
+  margin-left: 2vh;
+  border: 1px solid black;
+  display:inline-block;
+}
+
+.circleDiv {
+  border-radius: 50%;
+  height: 2vh;
+  width: 2vh;
+  border: 1px solid black;
+  background: blue;
+  position: relative;
+}
+
+#cross {
+  background: grey;
+  height: 6vh;
+  position: relative;
+  width: 2vh;
+  top: 7vh;
+  left: 10vh;
+}
+#cross:after {
+  background: grey;
+  content: "";
+  height: 2vh;
+  left: -2vh;
+  position: absolute;
+  top: 2vh;
+  width: 6vh;
 }

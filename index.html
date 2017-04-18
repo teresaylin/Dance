@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='css/jquery-ui.min.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src='js/jquery-ui.min.js'></script>
+    <script src='js/slide.js'></script>
     <script>
 
     // var formationX = parseInt($("#right").offset().left, 10);
@@ -67,6 +68,30 @@
         var deltaY = mouseY - currentY;
         $(dropped).css({'top': '+=' + deltaY, 'left': '+=' + deltaX});
         $(dropped).css('position', 'absolute');
+    });
+
+    </script>
+
+    <script> 
+
+    $(document).ready(function()
+    {
+      var start = generateAddSlide();
+      document.getElementById("frames").append(start);
+    });
+
+    $(document).on('click',"#newSlide", function(evt){
+      var slide = generateSlideStub();
+      var addSlide = generateAddSlide();
+
+      var frames = document.getElementById("frames");
+      var frameChildren = frames.childNodes;
+      var size = frameChildren.length;
+
+      frames.removeChild(frameChildren[size-1]);
+
+      frames.appendChild(slide);
+      frames.appendChild(addSlide);
     });
 
     </script>
