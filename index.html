@@ -8,28 +8,41 @@
     <script src='js/jquery-ui.min.js'></script>
     <script src='js/slide.js'></script>
     <script>
+
+    var deltaX;
+    var deltaY;
+
     $(function() {
         $(".draggable-icon").draggable({
             revert: "invalid",
             scroll: false,
             stack: ".draggable-icon",
             helper: "clone",
-            appendTo: "#main"
+            appendTo: "#main",
+            start: function(event, ui) {
+                var dropped = this;
+                console.log(this);
+                var mouseX = parseInt(event.pageX);
+                var mouseY = parseInt(event.pageY);
+                var currentX = parseInt($(dropped).offset().left, 10);
+                var currentY = parseInt($(dropped).offset().top, 10);
+                deltaX = mouseX - currentX;
+                deltaY = mouseY - currentY;
+            }
         });
         $("#right").droppable({
             accept: ".draggable-icon",
             drop: function(event, ui) {
                 var dropped = ui.draggable.clone();
-                // console.log(this);
-                // console.log(dropped);
-                // console.log(event);
                 $(dropped).appendTo("#right");
                 $(dropped).addClass("formation-icon");
-                // set css location
+                var positionX = parseInt(event.pageX);
+                var positionY = parseInt(event.pageY);
+                $(dropped).css('position', 'absolute');
+                $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
             }
         });
         // implement draggable for icons in the formation window
-
     });
 
     </script>
@@ -65,7 +78,7 @@
     </div>
     <div id="main">
         <div id="left">
-            <img src="images/blue_triangle.png" class="draggable-icon"><div class="spacing"></div>
+            <img src="images/blue_triangle.png" id="blue" class="draggable-icon"><div class="spacing"></div>
             <img src="images/orange_triangle.png" class="draggable-icon"><div class="spacing"></div>
             <img src="images/purple_triangle.png" class="draggable-icon"><div class="spacing"></div>
             <img src="images/green_triangle.png" class="draggable-icon"><br><br><br>
