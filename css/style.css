@@ -32,13 +32,13 @@ a {
 }
 
 #right-top {
-  height: 40vh;
-  margin-bottom: 5vh;
+  height: 52vh;
+  margin-bottom: 3vh;
   border: 1px solid black;
 }
 
 #right-bot {
-  height: 15vh;
+  height: 5vh;
   border: 1px solid black;
 }
 
@@ -47,6 +47,8 @@ a {
     height: 24vh;
     width: 100%;
     border: 1px solid black;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .draggable-icon {
@@ -73,7 +75,7 @@ a {
   height: 2vh;
   width: 2vh;
   border: 1px solid black;
-  background: blue;
+  background: #93cddd;
   position: relative;
 }
 
