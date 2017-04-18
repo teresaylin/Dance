@@ -70,6 +70,7 @@ a {
 }
 
 .slide {
+  text-align: center;
   height: 120px;
   width: 180px;
   margin-top: 2vh;
@@ -85,6 +86,13 @@ a {
   background-color: lightsteelblue;
   position: relative;
 }
+
+/*
+#plus {
+    margin-top: 35px;
+    width: 50px;
+}
+*/
 
 #cross {
   background-color: #ccd9ea;
