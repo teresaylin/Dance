@@ -48,6 +48,7 @@ a {
     width: 100%;
     border: 1px solid black;
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
 }
 
@@ -76,6 +77,17 @@ a {
   width: 2vh;
   border: 1px solid black;
   background: #93cddd;
+  position: relative;
+}
+
+.redBox {
+  background: red;
+  color: #fff;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  width: 20px;
+  height: 20px;
   position: relative;
 }
 

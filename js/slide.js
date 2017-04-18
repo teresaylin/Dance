@@ -1,6 +1,7 @@
 generateSlideStub = function(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";
+	slide.appendChild(generateX());
 
 	var p1 = document.createElement("DIV");
 	var p2 = document.createElement("DIV");
@@ -19,11 +20,21 @@ generateSlideStub = function(){
 	p3.style.top  = "12vh";
 	p3.style.left = "15vh";
 
-	slide.appendChild(p1);
-	slide.appendChild(p2);
-	slide.appendChild(p3);
+	//slide.appendChild(p1);
+	//slide.appendChild(p2);
+	//slide.appendChild(p3);
 
 	return slide;
+}
+
+generateX = function(){
+	var redBox = document.createElement("DIV");
+	redBox.className = "redBox";
+
+	var span = document.createElement("SPAN");
+	span.innerHTML = "X";
+	redBox.appendChild(span);
+	return redBox;
 }
 
 generateAddSlide = function(){
