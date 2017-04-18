@@ -87,11 +87,13 @@ a {
   position: relative;
 }
 
+/*
 #plus {
     margin-top: 35px;
     width: 50px;
 }
-/*
+*/
+
 #cross {
   background-color: #ccd9ea;
   height: 50px;
@@ -109,7 +111,7 @@ a {
   position: absolute;
   top: 17px;
   width: 50px;
-}*/
+}
 
 
 #play{

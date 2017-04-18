@@ -31,9 +31,9 @@ generateAddSlide = function(){
 	slide.className = "slide";
 	slide.id = "newSlide";
 
-	var plus = document.createElement("IMG");
-    plus.src = 'images/plus.png';
-    plus.id = 'plus';
+	var plus = document.createElement("DIV");
+//    plus.src = 'images/plus.png';
+    plus.id = 'cross';
     
 	slide.append(plus);
 	return slide;
