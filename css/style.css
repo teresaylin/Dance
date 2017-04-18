@@ -1,7 +1,5 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 a {
@@ -9,44 +7,56 @@ a {
 }
 
 .nav {
+    width: 1400px;
+    margin: auto;
     height: 50px;
     padding-bottom: 3px;
 }
 
 #main {
     display: flex;
-    height: 60vh;
 }
 
 #left {
-    width: 30%;
-    margin-right: 1.5%;
-    border: 1px solid black;
-    padding: 30px;
+    width: 400px;
+    height: 510px;
+    margin-right: 20px;
+    border: 1px solid #537E8C;
+    padding-top: 30px;
     text-align: center;
     overflow: scroll;
+    margin: auto;
 }
 
 #right {
-    width: 68%;
+    width: 980px;
+    margin: auto;
 }
 
 #right-top {
-  height: 40vh;
-  margin-bottom: 5vh;
-  border: 1px solid black;
+  height: 490px;
+  border-left: 1px solid #537E8C;
+  border-right: 1px solid #537E8C;
+  border-top: 1px solid #537E8C;
 }
 
 #right-bot {
-  height: 15vh;
-  border: 1px solid black;
+  height: 50px;
+  background-color: lightblue;
+  border-left: 1px solid #537E8C;
+  border-right: 1px solid #537E8C;
+  border-bottom: 1px solid #537E8C;
 }
 
 #frames {
-    margin-top: 3vh;
-    height: 24vh;
-    width: 100%;
-    border: 1px solid black;
+    margin: auto;
+    margin-top: 20px;
+    padding-left: 20px;
+    height: 150px;
+    width: 1380px;
+    border: 1px solid #537E8C;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .draggable-icon {
@@ -60,39 +70,39 @@ a {
 }
 
 .slide {
-  height: 20vh;
-  width: 22vh;
+  height: 120px;
+  width: 180px;
   margin-top: 2vh;
-  margin-left: 2vh;
-  border: 1px solid black;
+  margin-right: 20px;
+  border: 1px solid #537E8C;
   display:inline-block;
 }
 
 .circleDiv {
   border-radius: 50%;
-  height: 2vh;
-  width: 2vh;
-  border: 1px solid black;
-  background: blue;
+  height: 20px;
+  width: 20px;
+  background-color: lightsteelblue;
   position: relative;
 }
 
 #cross {
-  background: grey;
-  height: 6vh;
+  background-color: #ccd9ea;
+  height: 50px;
   position: relative;
-  width: 2vh;
-  top: 7vh;
+  width: 15px;
+  top: 37px;
   left: 10vh;
 }
+
 #cross:after {
-  background: grey;
+  background-color: #ccd9ea;
   content: "";
-  height: 2vh;
-  left: -2vh;
+  height: 15px;
+  left: -18px;
   position: absolute;
-  top: 2vh;
-  width: 6vh;
+  top: 17px;
+  width: 50px;
 }
 
 

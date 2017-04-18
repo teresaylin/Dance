@@ -10,14 +10,14 @@ generateSlideStub = function(){
 	p2.className = "circleDiv";
 	p3.className = "circleDiv";
 
-	p1.style.top  = "2vh";
-	p1.style.left = "2vh";
+	p1.style.top  = "15px";
+	p1.style.left = "20px";
 
-	p2.style.top  = "6vh";
-	p2.style.left = "8vh";
+	p2.style.top  = "30px";
+	p2.style.left = "70px";
 
-	p3.style.top  = "12vh";
-	p3.style.left = "15vh";
+	p3.style.top  = "45px";
+	p3.style.left = "120px";
 
 	slide.appendChild(p1);
 	slide.appendChild(p2);
