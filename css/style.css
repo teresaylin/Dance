@@ -29,7 +29,17 @@ a {
 
 #right {
     width: 68%;
-    border: 1px solid black;
+}
+
+#right-top {
+  height: 40vh;
+  margin-bottom: 5vh;
+  border: 1px solid black;
+}
+
+#right-bot {
+  height: 15vh;
+  border: 1px solid black;
 }
 
 #frames {
