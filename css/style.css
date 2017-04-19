@@ -36,7 +36,7 @@ a {
     height: 542px;
 }
 
-#right-top {
+#formation-pane {
   height: 490px;
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
@@ -44,7 +44,16 @@ a {
   overflow: hidden;
 }
 
-#right-bot {
+.formation-screen {
+    position: absolute;
+    width: 980px;
+    height: 490px;
+}
+
+#formation0 {
+}
+
+#audio-strip {
   height: 50px;
   background-color: lightblue;
   border-left: 1px solid #537E8C;
@@ -87,6 +96,11 @@ a {
   margin-right: 20px;
   border: 1px solid #537E8C;
   display:inline-block;
+  cursor: pointer;
+}
+
+.slide:hover {
+  border: 2px solid #537E8C;
 }
 
 .circleDiv {
@@ -143,10 +157,9 @@ a {
   background-size: 50% 50%;
   background-position: center;
 }
+
 .play{background: url('../images/play-image.png') no-repeat;}
 .pause{background: url('../images/pause-image.png') no-repeat;}
-
-
 
 #bubblebar{
   margin-left: 45px;
@@ -162,7 +175,6 @@ a {
   float: left;
   border-radius: 15px;
 }
-
 
 #playmarker{
   cursor: pointer;
@@ -182,3 +194,4 @@ a {
   border-radius: 50%;
   background: black;
 }
+

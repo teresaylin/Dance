@@ -134,8 +134,9 @@
             <img src="images/green_square.png" class="draggable-icon"><br><br><br>
         </div>
         <div id="right">
-            <div id="right-top"></div>
-            <div id="right-bot">
+            <div id="formation-pane">
+            </div>
+            <div id="audio-strip">
                 <audio id="player" src="bestsong.mp3" ontimeupdate = "time()"></audio>
                 <div id="bubblebar">
                     <div id="bubble" formnumber="0" time="0.00" onclick="onBubbleClick(this)">
@@ -143,7 +144,7 @@
                 </div>
                     <div> 
                       <button id="play" class="play" onclick="play_playbar()"></button>
-                      <div id="audioplayerbar">
+                      <div id="audioplayerbar" onclick="onTimelineClick(event)">
                             <div id="playmarker"></div>
                       </div>
                     </div>
