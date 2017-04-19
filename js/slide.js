@@ -50,6 +50,7 @@ function generateNewFormation() {
     return newFormation;
 }
 
+
 function new_slide() {
   generateNewFormation();
   var slide = generateSlideStub();
@@ -79,6 +80,8 @@ function new_slide() {
         });
   })(slide_id);
 
+  var currentTime = document.getElementById('player').currentTime;
+  addBubble(currentTime, slide_id)  
   slide_id += 1;
 }
 
