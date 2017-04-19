@@ -41,6 +41,7 @@ a {
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
   border-top: 1px solid #537E8C;
+  overflow: hidden;
 }
 
 #right-bot {

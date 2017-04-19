@@ -1,3 +1,4 @@
+//Generates a slide image for the frames bar.
 generateSlideStub = function(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";
@@ -27,6 +28,7 @@ generateSlideStub = function(){
 	return slide;
 }
 
+//Generates a close icon for the Slides (can probably be repurposed for draggable elements)
 generateX = function(){
 	var redBox = document.createElement("DIV");
 	redBox.className = "redBox";
@@ -34,6 +36,7 @@ generateX = function(){
 	return redBox;
 }
 
+//Generates the slide that functions as an add button.
 generateAddSlide = function(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";

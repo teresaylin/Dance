@@ -85,6 +85,7 @@
       document.getElementById("frames").append(start);
     });
 
+    //create a new generic slide, put it before the add button.
     $(document).on('click',"#newSlide", function(evt){
       var slide = generateSlideStub();
       var addSlide = generateAddSlide();
@@ -99,6 +100,7 @@
       frames.appendChild(addSlide);
     });
 
+    //Delete slide
     $(document).on('click',".redBox", function(evt){
       var slide = evt.target.parentNode;
       while(slide.className !== "slide"){
