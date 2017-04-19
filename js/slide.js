@@ -11,14 +11,14 @@ generateSlideStub = function(){
 	p2.className = "circleDiv";
 	p3.className = "circleDiv";
 
-	p1.style.top  = "15px";
+	p1.style.top  = "5px";
 	p1.style.left = "20px";
 
-	p2.style.top  = "30px";
-	p2.style.left = "70px";
+	p2.style.top  = "20px";
+	p2.style.left = "80px";
 
-	p3.style.top  = "45px";
-	p3.style.left = "120px";
+	p3.style.top  = "35px";
+	p3.style.left = "140px";
 
 	slide.appendChild(p1);
 	slide.appendChild(p2);
@@ -30,7 +30,7 @@ generateSlideStub = function(){
 generateX = function(){
 	var redBox = document.createElement("DIV");
 	redBox.className = "redBox";
-
+//    redBox.html = "X";
 	return redBox;
 }
 
