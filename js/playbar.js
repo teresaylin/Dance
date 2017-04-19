@@ -38,18 +38,8 @@ function addBubble(currentTime, formationNumber){
 
 function onBubbleClick(bubble){
     var formationID = bubble.getAttribute("formnumber");
-    var time = bubble.getAttribute("time");
 
-    console.log(time);
-    console.log(document.getElementById('player').currentTime);
-    document.getElementById('player').currentTime = time;
-    $('#bubble' + formationID.toString()).css({'background-color':'white'});
-    $('#bubble' + previous.toString()).css({'background-color':'black'});
-    // selected_formation = "#formation" + formationID.toString();
-    // console.log("showing " + selected_formation.toString())
-    // $(selected_formation).show();
-    previous = formationID
-    //TODO add how to change slides when a bubble is clicked (I only handled the playbar)
+    select_slide(formationID)
 }
 
 

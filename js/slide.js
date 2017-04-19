@@ -27,12 +27,29 @@ function generateNewFormation() {
         var children = $(selected_formation).children();
         children.each(function() {
             var childClone = $(this).clone();
-            // childClone.className = 'formation-icon';
             childClone.addClass("formation-icon");
             $("#formation" + slide_id.toString()).append(childClone);
         });
     }
     return newFormation;
+}
+
+function select_slide(slide_id) {
+    $(selected_slide).css('border', '1px solid #537E8C');
+    selected_slide = "#formation_stub" + slide_id.toString();
+    $(selected_slide).css('border', '3px solid #537E8C');
+    $(selected_formation).hide();
+    selected_formation = "#formation" + slide_id.toString();
+    $(selected_formation).show();
+    console.log(slide_id.toString())
+    $('#bubble' + slide_id.toString()).css({'background-color':'white'});
+    $('#bubble' + previous.toString()).css({'background-color':'black'});
+    previous = slide_id
+    var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
+    console.log(time);
+    console.log(document.getElementById('player').currentTime);
+    document.getElementById('player').currentTime = time;
+    
 }
 
 // clones previous formation into new formation
@@ -63,12 +80,7 @@ function new_slide() {
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
-            $(selected_slide).css('border', '1px solid #537E8C');
-            selected_slide = "#formation_stub" + slide_id.toString();
-            $(selected_slide).css('border', '3px solid #537E8C');
-            $(selected_formation).hide();
-            selected_formation = "#formation" + slide_id.toString();
-            $(selected_formation).show();
+            select_slide(slide_id);
         });
   })(slide_id);
 
@@ -102,8 +114,8 @@ generateAddSlide = function(){
 // when page loads
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
-    console.log('start');
-    console.log(boundingBox);
+    // console.log('start');
+    // console.log(boundingBox);
     var offsetX = parseInt($("#formation-pane").offset().left, 10);
     var offsetY = parseInt($("#formation-pane").offset().top, 10);
 
@@ -129,11 +141,11 @@ $(function() {
     // drop back in menu to delete icons
     $("#left").droppable({
         accept: function(e) {
-            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
+            if(e.hasClass("formation-icon")) {
                 return true;
             }
+            return false;
         },
-
         drop: function(event, ui) {
             dropped = ui.draggable;
             $(dropped).fadeOut(200);
@@ -156,11 +168,6 @@ $(function() {
             var positionY = parseInt(event.pageY);
             newX = positionX-deltaX;
             newY = positionY-deltaY;
-            // console.log(positionX);
-            // console.log(positionY);
-
-            // console.log(newX);
-            // console.log(newY);
             
             if(ui.draggable.hasClass("draggable-icon")) {
                 dropped = ui.draggable.clone();
@@ -178,20 +185,14 @@ $(function() {
             } else if (ui.draggable.hasClass("formation-icon")) {
                 dropped = ui.draggable;
                 $(dropped).css('position', 'absolute');
-                // $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
             }
             $(dropped).draggable({
                 revert: function(e) {
-                    // console.log('dragging icon in formaiton window');
-                    // console.log(boundingBox);
-                    // console.log('newX and newY');
-                    // console.log(newX);
-                    // console.log(newY);
                     if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
-                        // console.log('inside bounding box');
+                        console.log('inside bounding box');
                         return false;
                     } else {
-                        // console.log('not inside bounding box');
+                        console.log('not inside bounding box');
                         return true;
                     }
                 },
@@ -236,7 +237,6 @@ $(document).on('click',".redBox", function(evt){
 
   slide.id = "remove";
   $("#remove").remove();
-
 
   if(('#'+old_slide).valueOf() === selected_slide.valueOf()){
     selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
