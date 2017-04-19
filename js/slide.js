@@ -1,3 +1,4 @@
+generateSlideStub = function(){
 var slide_id = 0;
 var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
@@ -87,6 +88,7 @@ generateX = function(){
 	return redBox;
 }
 
+//Generates the slide that functions as an add button.
 generateAddSlide = function(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";

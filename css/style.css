@@ -41,6 +41,7 @@ a {
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
   border-top: 1px solid #537E8C;
+  overflow: hidden;
 }
 
 .formation-screen {
@@ -161,7 +162,7 @@ a {
 
 #bubblebar{
   margin-left: 45px;
-  width: 700px;
+  width: 920px;
   height: 15px;
 }
 
