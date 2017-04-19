@@ -29,11 +29,3 @@ function onBubbleClick(bubble){
     document.getElementById('player').currentTime = time;
     //TODO add how to change slides when a bubble is clicked (I only handled the playbar)
 }
-
-
-
-function onBubbleClick2(e){
-    console.log(e);
-    console.log($(this)[0])
-}
-
