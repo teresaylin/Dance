@@ -1,7 +1,8 @@
-generateSlideStub = function(){
 var slide_id = 0;
 var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
+var deltaX;
+var deltaY;
 
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
@@ -104,10 +105,6 @@ generateAddSlide = function(){
 	return slide;
 }
 
-
-var deltaX;
-var deltaY;
-
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
     
@@ -194,8 +191,7 @@ $(function() {
     });
 });
 
-$(document).ready(function()
-{
+$(document).ready(function() {
   var start = generateAddSlide();
   document.getElementById("frames").append(start);
   new_slide();
