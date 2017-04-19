@@ -10,27 +10,6 @@ function generateSlideStub(){
     slide.id = "formation_stub" + slide_id.toString();
 	slide.appendChild(generateX());
 
-	var p1 = document.createElement("DIV");
-	var p2 = document.createElement("DIV");
-	var p3 = document.createElement("DIV");
-
-	p1.className = "circleDiv";
-	p2.className = "circleDiv";
-	p3.className = "circleDiv";
-
-	p1.style.top  = "5px";
-	p1.style.left = "20px";
-
-	p2.style.top  = "20px";
-	p2.style.left = "80px";
-
-	p3.style.top  = "35px";
-	p3.style.left = "140px";
-
-	slide.appendChild(p1);
-	slide.appendChild(p2);
-	slide.appendChild(p3);
-
 	return slide;
 }
 
@@ -53,6 +32,12 @@ function generateNewFormation() {
 function new_slide() {
   generateNewFormation();
   var slide = generateSlideStub();
+
+  if($(selected_slide).length){// This is not the ready call
+  	slide = $(selected_slide)[0].cloneNode(true);
+  	slide.id = "formation_stub" + slide_id.toString();
+  }
+
   var addSlide = generateAddSlide();
     
   var frames = document.getElementById("frames");
@@ -203,9 +188,21 @@ $(document).on('click',"#newSlide", function(evt){
 
 $(document).on('click',".redBox", function(evt){
   var slide = evt.target.parentNode;
+  if($("#frames")[0].getElementsByClassName("slide").length == 2)return;
   while(slide.className !== "slide"){
     slide = slide.parentNode;
   }
+
+  var old_slide = slide.id;
+
   slide.id = "remove";
   $("#remove").remove();
+
+
+  if(('#'+old_slide).valueOf() === selected_slide.valueOf()){
+    selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
+    $('#'+selected_slide).css('border', '3px solid #537E8C');
+  }
+
+
 });
