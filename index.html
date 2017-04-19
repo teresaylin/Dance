@@ -9,108 +9,6 @@
     <script src='js/jquery-ui.min.js'></script>
     <script src='js/slide.js'></script>
     <script src="js/playbar.js"></script>
-    <script>
-
-    var deltaX;
-    var deltaY;
-
-    $(function() {
-        $(".draggable-icon").draggable({
-            revert: "invalid",
-            scroll: false,
-            stack: ".draggable-icon",
-            helper: "clone",
-            appendTo: "#main",
-            start: function(event, ui) {
-                var dropped = this;
-                var mouseX = parseInt(event.pageX);
-                var mouseY = parseInt(event.pageY);
-                var currentX = parseInt($(dropped).offset().left, 10);
-                var currentY = parseInt($(dropped).offset().top, 10);
-                deltaX = mouseX - currentX;
-                deltaY = mouseY - currentY;
-            }
-        });
-        $("#right-top").droppable({
-            accept: function(e) {
-                if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
-                    return true;
-                }
-            },
-
-            drop: function(event, ui) {
-                var dropped;
-                if(ui.draggable.hasClass("draggable-icon")) {
-                    dropped = ui.draggable.clone();
-                    $(dropped).appendTo("#right-top");
-                    $(dropped).addClass("formation-icon");
-                    $(dropped).removeClass("draggable-icon");
-                    var positionX = parseInt(event.pageX);
-                    var positionY = parseInt(event.pageY);
-                    $(dropped).css('position', 'absolute');
-                    $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
-                } else if (ui.draggable.hasClass("formation-icon")) {
-                    dropped = ui.draggable;
-                    var positionX = parseInt(event.pageX);
-                    var positionY = parseInt(event.pageY);
-                    $(dropped).css('position', 'absolute');
-                    $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
-                }
-                $(dropped).draggable({
-                    revert: "invalid",
-                    stack: ".formation-icon",
-                    start: function(event, ui) {
-                        // update the deltaX and deltaY
-                        var dropped = this;
-                        var mouseX = parseInt(event.pageX);
-                        var mouseY = parseInt(event.pageY);
-                        var currentX = parseInt($(dropped).offset().left, 10);
-                        var currentY = parseInt($(dropped).offset().top, 10);
-                        deltaX = mouseX - currentX;
-                        deltaY = mouseY - currentY;
-                    }
-                });
-            }
-        });
-    });
-    
-
-    </script>
-
-    <script> 
-
-    $(document).ready(function()
-    {
-      var start = generateAddSlide();
-      document.getElementById("frames").append(start);
-    });
-
-    $(document).on('click',"#newSlide", function(evt){
-      var slide = generateSlideStub();
-      var addSlide = generateAddSlide();
-
-      var frames = document.getElementById("frames");
-      var frameChildren = frames.childNodes;
-      var size = frameChildren.length;
-
-      frames.removeChild(frameChildren[size-1]);
-
-      frames.appendChild(slide);
-      frames.appendChild(addSlide);
-    });
-
-    $(document).on('click',".redBox", function(evt){
-      var slide = evt.target.parentNode;
-      while(slide.className !== "slide"){
-        slide = slide.parentNode;
-      }
-      slide.id = "remove";
-      $("#remove").remove();
-    });
-
-
-    </script>
-
   </head>
   <body>
     <div class="nav">
@@ -132,8 +30,9 @@
             <img src="images/green_square.png" class="draggable-icon"><br><br><br>
         </div>
         <div id="right">
-            <div id="right-top"></div>
-            <div id="right-bot">
+            <div id="formation-pane">
+            </div>
+            <div id="audio-strip">
                 <audio id="player" src="bestsong.mp3" ontimeupdate = "time()"></audio>
                 <div id="bubblebar">
                     <div id="bubble" formnumber="0" time="0.00" onclick="onBubbleClick(this)">

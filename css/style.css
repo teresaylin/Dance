@@ -36,14 +36,23 @@ a {
     height: 542px;
 }
 
-#right-top {
+#formation-pane {
   height: 490px;
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
   border-top: 1px solid #537E8C;
 }
 
-#right-bot {
+.formation-screen {
+    position: absolute;
+    width: 980px;
+    height: 490px;
+}
+
+#formation0 {
+}
+
+#audio-strip {
   height: 50px;
   background-color: lightblue;
   border-left: 1px solid #537E8C;
@@ -86,6 +95,11 @@ a {
   margin-right: 20px;
   border: 1px solid #537E8C;
   display:inline-block;
+  cursor: pointer;
+}
+
+.slide:hover {
+  border: 2px solid #537E8C;
 }
 
 .circleDiv {
@@ -180,6 +194,3 @@ a {
   background: black;
 }
 
-.formation-screen {
-    
-}
