@@ -183,7 +183,7 @@ a {
   background: black;
 }
 
-#bubble{
+.bubble{
   margin-top: 5px;
   float: left;
   cursor: pointer;
