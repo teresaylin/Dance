@@ -107,7 +107,7 @@ generateAddSlide = function(){
 
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
-    
+//    console.log(boundingBox.top, boundingBox.left, boundingBox.bottom, boundingBox.right);
     $(".draggable-icon").draggable({
         revert: "invalid",
         scroll: false,
@@ -126,6 +126,19 @@ $(function() {
             elementHeight = parseInt($(dropped).css('height'), 10);
         }
     });
+    $("#left").droppable({
+        accept: function(e) {
+            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
+                return true;
+            }
+        },
+
+        drop: function(event, ui) {
+            dropped = ui.draggable;
+            $(dropped).fadeOut(200);
+        }
+        
+    })
     $("#formation-pane").droppable({
         accept: function(e) {
             if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
@@ -161,17 +174,25 @@ $(function() {
                 var positionX = parseInt(event.pageX);
                 var positionY = parseInt(event.pageY);
                 $(dropped).css('position', 'absolute');
-                $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
+                newY = positionY-deltaY+offsetY;
+                newX = positionX-deltaX+offsetX;
+                if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+                    $(dropped).css({'top': newY-offsetY, 'left': newX-offsetX});
+                } else {
+                    $(dropped).remove();
+                }
             }
             $(dropped).draggable({
-                revert: function(e) {
-                    if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                },
+                revert: "invalid",
+//                function(e) {
+//                    if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+//                        return false;
+//                    } else {
+//                        return true;
+//                    }
+//                },
                 stack: ".formation-icon",
+                scroll: false,
                 start: function(event, ui) {
                     // update the deltaX and deltaY
                     var dropped = this;
