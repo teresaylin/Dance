@@ -13,8 +13,15 @@
 
     var deltaX;
     var deltaY;
+    var boundingBox;
+    var elementWidth;
+    var elementHeight;
+    var newX;
+    var newY;
 
     $(function() {
+        boundingBox = document.getElementById("right-top").getBoundingClientRect();
+
         $(".draggable-icon").draggable({
             revert: "invalid",
             scroll: false,
@@ -29,8 +36,11 @@
                 var currentY = parseInt($(dropped).offset().top, 10);
                 deltaX = mouseX - currentX;
                 deltaY = mouseY - currentY;
+                elementWidth = parseInt($(dropped).css('width'), 10);
+                elementHeight = parseInt($(dropped).css('height'), 10);
             }
         });
+
         $("#right-top").droppable({
             accept: function(e) {
                 if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
@@ -48,19 +58,37 @@
                     var positionX = parseInt(event.pageX);
                     var positionY = parseInt(event.pageY);
                     $(dropped).css('position', 'absolute');
-                    $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
+                    newX = positionX-deltaX;
+                    newY = positionY-deltaY;
+
+                    // bound where the icon can be dropped
+                    if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+                        $(dropped).css({'top': newY, 'left': newX});
+                    } else {
+                        $(dropped).remove();
+                    }
                 } else if (ui.draggable.hasClass("formation-icon")) {
                     dropped = ui.draggable;
                     var positionX = parseInt(event.pageX);
                     var positionY = parseInt(event.pageY);
                     $(dropped).css('position', 'absolute');
-                    $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
+                    newX = positionX-deltaX;
+                    newY = positionY-deltaY;
                 }
+
                 $(dropped).draggable({
-                    revert: "invalid",
+                    // revert: "invalid",
+                    revert: function(e) {
+                        if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
                     stack: ".formation-icon",
+                    scroll: false,
                     start: function(event, ui) {
-                        // update the deltaX and deltaY
+                        // update the deltaX, deltaY, elementWidth, elementHeight
                         var dropped = this;
                         var mouseX = parseInt(event.pageX);
                         var mouseY = parseInt(event.pageY);
@@ -68,6 +96,8 @@
                         var currentY = parseInt($(dropped).offset().top, 10);
                         deltaX = mouseX - currentX;
                         deltaY = mouseY - currentY;
+                        elementWidth = parseInt($(dropped).css('width'), 10);
+                        elementHeight = parseInt($(dropped).css('height'), 10);
                     }
                 });
             }
