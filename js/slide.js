@@ -69,6 +69,14 @@ function new_slide() {
             $(selected_formation).hide();
             selected_formation = "#formation" + slide_id.toString();
             $(selected_formation).show();
+            console.log(slide_id.toString())
+            $('#bubble' + slide_id.toString()).css({'background-color':'white'});
+    		$('#bubble' + previous.toString()).css({'background-color':'black'});
+    		previous = slide_id
+    		var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
+		    console.log(time);
+		    console.log(document.getElementById('player').currentTime);
+		    document.getElementById('player').currentTime = time;
         });
   })(slide_id);
 
