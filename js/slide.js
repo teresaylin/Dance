@@ -59,6 +59,7 @@ function new_slide() {
   $(selected_slide).css('border', '1px solid #537E8C');
   selected_slide = "#formation_stub" + slide_id.toString();
   $(selected_slide).css('border', '3px solid #537E8C');
+  selected_formation = "#formation" + slide_id.toString();
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
@@ -105,10 +106,9 @@ $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
     console.log('start');
     console.log(boundingBox);
-    
     var offsetX = parseInt($("#formation-pane").offset().left, 10);
     var offsetY = parseInt($("#formation-pane").offset().top, 10);
-    
+
     $(".draggable-icon").draggable({
         revert: "invalid",
         scroll: false,
@@ -125,6 +125,20 @@ $(function() {
             deltaY = mouseY - currentY;
             elementWidth = parseInt($(dropped).css('width'), 10);
             elementHeight = parseInt($(dropped).css('height'), 10);
+        }
+    });
+
+    // drop back in menu to delete icons
+    $("#left").droppable({
+        accept: function(e) {
+            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
+                return true;
+            }
+        },
+
+        drop: function(event, ui) {
+            dropped = ui.draggable;
+            $(dropped).fadeOut(200);
         }
     });
 

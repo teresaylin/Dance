@@ -27,7 +27,15 @@ a {
     padding-top: 30px;
     text-align: center;
     overflow: scroll;
-    margin: auto;
+    margin: auto; 
+}
+
+#left img  {
+    opacity: 50%;
+}
+
+#left img:hover {
+    opacity: 100%;
 }
 
 #right {
@@ -76,6 +84,7 @@ a {
 .draggable-icon {
     width: 60px;
     height: 60px;
+    cursor: pointer;
 }
 
 .formation-icon {
@@ -95,8 +104,14 @@ a {
   margin-top: 2vh;
   margin-right: 20px;
   border: 1px solid #537E8C;
-  display:inline-block;
+  display: inline-block;
   cursor: pointer;
+/*
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+*/
 }
 
 .slide:hover {
