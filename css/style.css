@@ -67,6 +67,11 @@ a {
     height: 60px;
 }
 
+.formation-icon {
+    width: 60px;
+    height: 60px;
+}
+
 .spacing {
     width: 30px;
     display: inline-block;
