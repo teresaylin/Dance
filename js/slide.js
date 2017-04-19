@@ -42,7 +42,6 @@ function generateNewFormation() {
         children.each(function() {
             var childClone = $(this).clone();
             childClone.className = 'draggable-icon';
-            console.log(childClone);
             $("#formation" + slide_id.toString()).append(childClone);
         });
     }
@@ -84,7 +83,7 @@ function new_slide() {
 generateX = function(){
 	var redBox = document.createElement("DIV");
 	redBox.className = "redBox";
-//    redBox.html = "X";
+//    redBox.innerHTML = "X";
 	return redBox;
 }
 
