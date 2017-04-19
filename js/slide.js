@@ -35,6 +35,24 @@ function generateNewFormation() {
     return newFormation;
 }
 
+function select_slide(slide_id) {
+    $(selected_slide).css('border', '1px solid #537E8C');
+    selected_slide = "#formation_stub" + slide_id.toString();
+    $(selected_slide).css('border', '3px solid #537E8C');
+    $(selected_formation).hide();
+    selected_formation = "#formation" + slide_id.toString();
+    $(selected_formation).show();
+    console.log(slide_id.toString())
+    $('#bubble' + slide_id.toString()).css({'background-color':'white'});
+    $('#bubble' + previous.toString()).css({'background-color':'black'});
+    previous = slide_id
+    var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
+    console.log(time);
+    console.log(document.getElementById('player').currentTime);
+    document.getElementById('player').currentTime = time;
+    
+}
+
 // clones previous formation into new formation
 function new_slide() {
   generateNewFormation();
@@ -63,20 +81,7 @@ function new_slide() {
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
-            $(selected_slide).css('border', '1px solid #537E8C');
-            selected_slide = "#formation_stub" + slide_id.toString();
-            $(selected_slide).css('border', '3px solid #537E8C');
-            $(selected_formation).hide();
-            selected_formation = "#formation" + slide_id.toString();
-            $(selected_formation).show();
-            console.log(slide_id.toString())
-            $('#bubble' + slide_id.toString()).css({'background-color':'white'});
-    		$('#bubble' + previous.toString()).css({'background-color':'black'});
-    		previous = slide_id
-    		var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
-		    console.log(time);
-		    console.log(document.getElementById('player').currentTime);
-		    document.getElementById('player').currentTime = time;
+            select_slide(slide_id);
         });
   })(slide_id);
 
