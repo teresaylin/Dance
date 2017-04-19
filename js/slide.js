@@ -48,7 +48,7 @@ function new_slide() {
   var addSlide = generateAddSlide();
     
   var frames = document.getElementById("frames");
-  var frameChildren = frames.childNodes;
+  var frameChildren = frames.childNodes;https://www.messenger.com/t/1341535865921009
   var size = frameChildren.length;
 
   frames.removeChild(frameChildren[size-1]);
@@ -72,8 +72,6 @@ function new_slide() {
         });
   })(slide_id);
 
-  var currentTime = document.getElementById('player').currentTime;
-  addBubble(currentTime, slide_id)  
   slide_id += 1;
 }
 
@@ -243,7 +241,54 @@ $(document).on('click',".redBox", function(evt){
   if(('#'+old_slide).valueOf() === selected_slide.valueOf()){
     selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
     $('#'+selected_slide).css('border', '3px solid #537E8C');
+
+    $(selected_formation).hide();
+    selected_formation = "#formation" + parseInt(selected_slide.substring(14)); //Jenky as shit but works, needs to be cleaned up. Spoooky magic number
+    $(selected_formation).show();
   }
-
-
 });
+
+updateSlideImg = function(){
+  var slide = $(selected_slide);
+  var formation_pane = $(selected_formation)[0];
+
+  slide.empty();
+  slide = slide[0];
+  slide.appendChild(generateX());
+
+  var pane_rect = formation_pane.getBoundingClientRect();
+
+  var base_height = pane_rect.height;
+  var base_width = pane_rect.width;
+
+  var slide_rect = slide.getBoundingClientRect();
+
+  var slideX = slide_rect.left;
+  var slideY = slide_rect.top;
+
+  var minimize_height = slide_rect.height;
+  var minimize_width = slide_rect.width;
+
+  var conversionFactor = minimize_height*1.0/base_height;
+
+  var elementsToCopy = formation_pane.childNodes;
+
+  for(var i = 0; i < elementsToCopy.length; i++){
+    var element = elementsToCopy[i].cloneNode(true);
+    element.classList.remove("formation-icon");
+    element.classList.add("mini-icon");
+
+    var elemX = parseInt(element.style.left);
+    var elemY = parseInt(element.style.top);
+
+    var offsetX = Math.round(slideX+document.body.scrollLeft+elemX*conversionFactor);
+    var offsetY = Math.round(slideY+document.body.scrollTop+elemY*conversionFactor);
+
+
+    element.style.left = ""+offsetX+"px";
+    element.style.top  = ""+offsetY+"px";
+
+
+    slide.appendChild(element);
+  }
+}
