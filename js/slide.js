@@ -53,6 +53,7 @@ function new_slide() {
   $(selected_slide).css('border', '1px solid #537E8C');
   selected_slide = "#formation_stub" + slide_id.toString();
   $(selected_slide).css('border', '3px solid #537E8C');
+  selected_formation = "#formation" + slide_id.toString();
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
