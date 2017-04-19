@@ -100,7 +100,7 @@ a {
 .slide {
   text-align: center;
   height: 120px;
-  width: 180px;
+  width: 240px;
   margin-top: 2vh;
   margin-right: 20px;
   border: 1px solid #537E8C;
@@ -150,7 +150,7 @@ a {
   position: relative;
   width: 15px;
   top: 37px;
-  left: 10vh;
+  left: 115px;
 }
 
 #cross:after {
@@ -198,7 +198,7 @@ a {
   background: black;
 }
 
-#bubble{
+.bubble{
   margin-top: 5px;
   float: left;
   cursor: pointer;
