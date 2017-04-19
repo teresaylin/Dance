@@ -33,6 +33,7 @@ a {
 #right {
     width: 980px;
     margin: auto;
+    height: 542px;
 }
 
 #right-top {
@@ -63,6 +64,11 @@ a {
 }
 
 .draggable-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.formation-icon {
     width: 60px;
     height: 60px;
 }
@@ -141,7 +147,7 @@ a {
 .pause{background: url('../images/pause-image.png') no-repeat;}
 
 #bubblebar{
-  margin-left: 40px;
+  margin-left: 45px;
   width: 700px;
   height: 15px;
 }
@@ -157,8 +163,8 @@ a {
 
 #playmarker{
   cursor: pointer;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: black;
 }
