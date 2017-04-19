@@ -50,16 +50,17 @@
 
             drop: function(event, ui) {
                 var dropped;
+                var positionX = parseInt(event.pageX);
+                var positionY = parseInt(event.pageY);
+                newX = positionX-deltaX;
+                newY = positionY-deltaY;
+
                 if(ui.draggable.hasClass("draggable-icon")) {
                     dropped = ui.draggable.clone();
                     $(dropped).appendTo("#right-top");
                     $(dropped).addClass("formation-icon");
                     $(dropped).removeClass("draggable-icon");
-                    var positionX = parseInt(event.pageX);
-                    var positionY = parseInt(event.pageY);
                     $(dropped).css('position', 'absolute');
-                    newX = positionX-deltaX;
-                    newY = positionY-deltaY;
 
                     // bound where the icon can be dropped
                     if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
@@ -69,11 +70,7 @@
                     }
                 } else if (ui.draggable.hasClass("formation-icon")) {
                     dropped = ui.draggable;
-                    var positionX = parseInt(event.pageX);
-                    var positionY = parseInt(event.pageY);
                     $(dropped).css('position', 'absolute');
-                    newX = positionX-deltaX;
-                    newY = positionY-deltaY;
                 }
 
                 $(dropped).draggable({
