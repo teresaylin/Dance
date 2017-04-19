@@ -136,10 +136,9 @@ a {
   background-size: 50% 50%;
   background-position: center;
 }
+
 .play{background: url('../images/play-image.png') no-repeat;}
 .pause{background: url('../images/pause-image.png') no-repeat;}
-
-
 
 #bubblebar{
   margin-left: 40px;
@@ -155,7 +154,6 @@ a {
   float: left;
   border-radius: 15px;
 }
-
 
 #playmarker{
   cursor: pointer;
@@ -174,4 +172,8 @@ a {
   height: 10px;
   border-radius: 50%;
   background: black;
+}
+
+.formation-screen {
+    
 }
