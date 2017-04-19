@@ -3,16 +3,21 @@ var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
 var deltaX;
 var deltaY;
+var elementWidth;
+var elementHeight;
+var newX;
+var newY;
+var boundingBox;
 
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";
     slide.id = "formation_stub" + slide_id.toString();
 	slide.appendChild(generateX());
-
 	return slide;
 }
 
+// generates a new div for a new formation, adds to #formation-pane div
 function generateNewFormation() {
     var newFormation = document.createElement("DIV");
     newFormation.id = "formation" + slide_id.toString();
@@ -22,14 +27,15 @@ function generateNewFormation() {
         var children = $(selected_formation).children();
         children.each(function() {
             var childClone = $(this).clone();
-            childClone.className = 'draggable-icon';
+            // childClone.className = 'formation-icon';
+            childClone.addClass("formation-icon");
             $("#formation" + slide_id.toString()).append(childClone);
         });
     }
     return newFormation;
 }
 
-
+// clones previous formation into new formation
 function new_slide() {
   generateNewFormation();
   var slide = generateSlideStub();
@@ -70,6 +76,7 @@ function new_slide() {
   slide_id += 1;
 }
 
+// creates an X for mini formation slides for deletion
 generateX = function(){
 	var redBox = document.createElement("DIV");
 	redBox.className = "redBox";
@@ -93,8 +100,14 @@ generateAddSlide = function(){
 	return slide;
 }
 
+// when page loads
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
+    console.log('start');
+    console.log(boundingBox);
+    
+    var offsetX = parseInt($("#formation-pane").offset().left, 10);
+    var offsetY = parseInt($("#formation-pane").offset().top, 10);
     
     $(".draggable-icon").draggable({
         revert: "invalid",
@@ -114,21 +127,28 @@ $(function() {
             elementHeight = parseInt($(dropped).css('height'), 10);
         }
     });
+
     $("#formation-pane").droppable({
         accept: function(e) {
             if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
                 return true;
             }
+            return false;
         },
 
         drop: function(event, ui) {
+            // console.log('dropped');
+            // console.log(boundingBox);
             var dropped;
             var positionX = parseInt(event.pageX);
             var positionY = parseInt(event.pageY);
-            var offsetX = $("#formation-pane").offset().left;
-            var offsetY = $("#formation-pane").offset().top;
             newX = positionX-deltaX;
             newY = positionY-deltaY;
+            // console.log(positionX);
+            // console.log(positionY);
+
+            // console.log(newX);
+            // console.log(newY);
             
             if(ui.draggable.hasClass("draggable-icon")) {
                 dropped = ui.draggable.clone();
@@ -136,7 +156,6 @@ $(function() {
                 $(dropped).addClass("formation-icon");
                 $(dropped).removeClass("draggable-icon");
                 $(dropped).css('position', 'absolute');
-//                $(dropped).css({'top': positionY-offsetY-deltaY, 'left': positionX-offsetX-deltaX});
 
                 // bound where the icon can be dropped
                 if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
@@ -146,31 +165,35 @@ $(function() {
                 }
             } else if (ui.draggable.hasClass("formation-icon")) {
                 dropped = ui.draggable;
-                var positionX = parseInt(event.pageX);
-                var positionY = parseInt(event.pageY);
                 $(dropped).css('position', 'absolute');
-                $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
+                // $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
             }
             $(dropped).draggable({
                 revert: function(e) {
+                    // console.log('dragging icon in formaiton window');
+                    // console.log(boundingBox);
+                    // console.log('newX and newY');
+                    // console.log(newX);
+                    // console.log(newY);
                     if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+                        // console.log('inside bounding box');
                         return false;
                     } else {
+                        // console.log('not inside bounding box');
                         return true;
                     }
                 },
                 stack: ".formation-icon",
+                scroll: false,
                 start: function(event, ui) {
-                    // update the deltaX and deltaY
+                    // update the deltaX, deltaY, elementWidth, elementHeight
                     var dropped = this;
                     var mouseX = parseInt(event.pageX);
                     var mouseY = parseInt(event.pageY);
-                    var offsetX = $("#formation-pane").offset().left;
-                    var offsetY = $("#formation-pane").offset().top;
                     var currentX = parseInt($(dropped).offset().left, 10);
                     var currentY = parseInt($(dropped).offset().top, 10);
-                    deltaX = mouseX + offsetX - currentX;
-                    deltaY = mouseY + offsetY - currentY;
+                    deltaX = mouseX - currentX;
+                    deltaY = mouseY - currentY;
                     elementWidth = parseInt($(dropped).css('width'), 10);
                     elementHeight = parseInt($(dropped).css('height'), 10);
                 }
@@ -180,9 +203,10 @@ $(function() {
 });
 
 $(document).ready(function() {
-  var start = generateAddSlide();
-  document.getElementById("frames").append(start);
-  new_slide();
+    // adds a + slide in the bottom #frames div
+    var start = generateAddSlide();
+    document.getElementById("frames").append(start);
+    new_slide();
 });
 
 $(document).on('click',"#newSlide", function(evt){
