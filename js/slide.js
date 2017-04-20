@@ -27,6 +27,7 @@ function generateNewFormation() {
         var children = $(selected_formation).children();
         children.each(function() {
             var childClone = $(this).clone();
+            // childClone.className = 'formation-icon';
             childClone.addClass("formation-icon");
             $("#formation" + slide_id.toString()).append(childClone);
         });
@@ -35,14 +36,12 @@ function generateNewFormation() {
 }
 
 function select_slide(slide_id) {
-    updateSlideImg();
     $(selected_slide).css('border', '1px solid #537E8C');
     selected_slide = "#formation_stub" + slide_id.toString();
     $(selected_slide).css('border', '3px solid #537E8C');
     $(selected_formation).hide();
     selected_formation = "#formation" + slide_id.toString();
     $(selected_formation).show();
-    updateSlideImg();
     console.log(slide_id.toString())
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
@@ -67,7 +66,7 @@ function new_slide() {
   var addSlide = generateAddSlide();
     
   var frames = document.getElementById("frames");
-  var frameChildren = frames.childNodes;https://www.messenger.com/t/1341535865921009
+  var frameChildren = frames.childNodes;
   var size = frameChildren.length;
 
   frames.removeChild(frameChildren[size-1]);
@@ -85,8 +84,9 @@ function new_slide() {
             select_slide(slide_id);
         });
   })(slide_id);
+
   var currentTime = document.getElementById('player').currentTime;
-  addBubble(currentTime, slide_id) 
+  addBubble(currentTime, slide_id)  
   slide_id += 1;
 }
 
@@ -117,8 +117,8 @@ generateAddSlide = function(){
 // when page loads
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
-    // console.log('start');
-    // console.log(boundingBox);
+    console.log('start');
+    console.log(boundingBox);
     var offsetX = parseInt($("#formation-pane").offset().left, 10);
     var offsetY = parseInt($("#formation-pane").offset().top, 10);
 
@@ -144,11 +144,11 @@ $(function() {
     // drop back in menu to delete icons
     $("#left").droppable({
         accept: function(e) {
-            if(e.hasClass("formation-icon")) {
+            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
                 return true;
             }
-            return false;
         },
+
         drop: function(event, ui) {
             dropped = ui.draggable;
             $(dropped).fadeOut(200);
@@ -171,6 +171,11 @@ $(function() {
             var positionY = parseInt(event.pageY);
             newX = positionX-deltaX;
             newY = positionY-deltaY;
+            // console.log(positionX);
+            // console.log(positionY);
+
+            // console.log(newX);
+            // console.log(newY);
             
             if(ui.draggable.hasClass("draggable-icon")) {
                 dropped = ui.draggable.clone();
@@ -188,15 +193,20 @@ $(function() {
             } else if (ui.draggable.hasClass("formation-icon")) {
                 dropped = ui.draggable;
                 $(dropped).css('position', 'absolute');
+                // $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
             }
             $(dropped).draggable({
-
                 revert: function(e) {
+                    // console.log('dragging icon in formaiton window');
+                    // console.log(boundingBox);
+                    // console.log('newX and newY');
+                    // console.log(newX);
+                    // console.log(newY);
                     if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
-                        console.log('inside bounding box');
+                        // console.log('inside bounding box');
                         return false;
                     } else {
-                        console.log('not inside bounding box');
+                        // console.log('not inside bounding box');
                         return true;
                     }
                 },
@@ -227,9 +237,7 @@ $(document).ready(function() {
 });
 
 $(document).on('click',"#newSlide", function(evt){
-    updateSlideImg();
     new_slide();
-    updateSlideImg();
 });
 
 $(document).on('click',".redBox", function(evt){
@@ -244,15 +252,19 @@ $(document).on('click',".redBox", function(evt){
   slide.id = "remove";
   $("#remove").remove();
 
+
   if(('#'+old_slide).valueOf() === selected_slide.valueOf()){
     selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
     $('#'+selected_slide).css('border', '3px solid #537E8C');
-
-    $(selected_formation).hide();
-    selected_formation = "#formation" + parseInt(selected_slide.substring(14)); //Jenky as shit but works, needs to be cleaned up. Spoooky magic number
-    $(selected_formation).show();
   }
+
+
 });
+
+$(document).on('mousemove', function(evt){
+	updateSlideImg();
+});
+
 
 updateSlideImg = function(){
   var slide = $(selected_slide);
