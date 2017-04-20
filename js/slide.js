@@ -83,7 +83,8 @@ function new_slide() {
             select_slide(slide_id);
         });
   })(slide_id);
-
+  var currentTime = document.getElementById('player').currentTime;
+  addBubble(currentTime, slide_id) 
   slide_id += 1;
 }
 
@@ -175,6 +176,7 @@ $(function() {
                 $(dropped).addClass("formation-icon");
                 $(dropped).removeClass("draggable-icon");
                 $(dropped).css('position', 'absolute');
+                updateSlideImg()
 
                 // bound where the icon can be dropped
                 if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
@@ -187,6 +189,7 @@ $(function() {
                 $(dropped).css('position', 'absolute');
             }
             $(dropped).draggable({
+
                 revert: function(e) {
                     if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
                         console.log('inside bounding box');
