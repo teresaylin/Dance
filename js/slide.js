@@ -35,12 +35,14 @@ function generateNewFormation() {
 }
 
 function select_slide(slide_id) {
+    updateSlideImg();
     $(selected_slide).css('border', '1px solid #537E8C');
     selected_slide = "#formation_stub" + slide_id.toString();
     $(selected_slide).css('border', '3px solid #537E8C');
     $(selected_formation).hide();
     selected_formation = "#formation" + slide_id.toString();
     $(selected_formation).show();
+    updateSlideImg();
     console.log(slide_id.toString())
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
@@ -176,7 +178,6 @@ $(function() {
                 $(dropped).addClass("formation-icon");
                 $(dropped).removeClass("draggable-icon");
                 $(dropped).css('position', 'absolute');
-                updateSlideImg()
 
                 // bound where the icon can be dropped
                 if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
@@ -226,7 +227,9 @@ $(document).ready(function() {
 });
 
 $(document).on('click',"#newSlide", function(evt){
+    updateSlideImg();
     new_slide();
+    updateSlideImg();
 });
 
 $(document).on('click',".redBox", function(evt){
