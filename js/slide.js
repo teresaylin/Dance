@@ -144,7 +144,7 @@ $(function() {
     // drop back in menu to delete icons
     $("#left").droppable({
         accept: function(e) {
-            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
+            if(e.hasClass("formation-icon")) {
                 return true;
             }
         },
@@ -171,11 +171,11 @@ $(function() {
             var positionY = parseInt(event.pageY);
             newX = positionX-deltaX;
             newY = positionY-deltaY;
-            // console.log(positionX);
-            // console.log(positionY);
 
-            // console.log(newX);
-            // console.log(newY);
+            console.log('box');
+            console.log(boundingBox);
+            console.log(newX + elementWidth);
+            console.log(newY + elementHeight);
             
             if(ui.draggable.hasClass("draggable-icon")) {
                 dropped = ui.draggable.clone();
@@ -185,7 +185,7 @@ $(function() {
                 $(dropped).css('position', 'absolute');
 
                 // bound where the icon can be dropped
-                if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
+                if (newX >= offsetX && newY >= offsetY && newX+elementWidth <= offsetX+boundingBox.width && newY+elementHeight <= offsetY+boundingBox.height) {
                     $(dropped).css({'top': newY-offsetY, 'left': newX-offsetX});
                 } else {
                     $(dropped).remove();
@@ -193,17 +193,11 @@ $(function() {
             } else if (ui.draggable.hasClass("formation-icon")) {
                 dropped = ui.draggable;
                 $(dropped).css('position', 'absolute');
-                // $(dropped).css({'top': positionY-deltaY, 'left': positionX-deltaX});
             }
             $(dropped).draggable({
                 revert: function(e) {
-                    // console.log('dragging icon in formaiton window');
-                    // console.log(boundingBox);
-                    // console.log('newX and newY');
-                    // console.log(newX);
-                    // console.log(newY);
-                    if (newX >= boundingBox.left && newY >= boundingBox.top && newX+elementWidth <= boundingBox.right && newY+elementHeight <= boundingBox.bottom) {
-                        // console.log('inside bounding box');
+                    if (newX >= offsetX && newY >= offsetY && newX+elementWidth <= offsetX+boundingBox.width && newY+elementHeight <= offsetY+boundingBox.height) {
+                        console.log('inside bounding box');
                         return false;
                     } else {
                         // console.log('not inside bounding box');
