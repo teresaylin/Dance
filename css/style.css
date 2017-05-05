@@ -42,12 +42,18 @@ a {
     width: 980px;
     margin: auto;
     height: 542px;
+    position: relative;
 }
 
 #dragText {
   text-align: center;
   padding-top: 200px;
-  color: gray;
+  color: #c5c5c5;
+  position: absolute;
+  width: 100%;
+  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
 }
 
 #formation-pane {
@@ -62,9 +68,6 @@ a {
     position: absolute;
     width: 980px;
     height: 490px;
-}
-
-#formation0 {
 }
 
 #audio-strip {

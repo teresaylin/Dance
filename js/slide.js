@@ -23,6 +23,7 @@ function generateNewFormation() {
     newFormation.id = "formation" + slide_id.toString();
     newFormation.className = "formation-screen";
     $("#formation-pane").append(newFormation);
+
     if (slide_id != 0) {
         var children = $(selected_formation).children();
         children.each(function() {
