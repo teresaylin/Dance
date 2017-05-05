@@ -19,6 +19,24 @@ a {
     width: 1420px;
 }
 
+#audience {
+    height: 49px;
+    border-left: 1px solid #537E8C;
+    border-right: 1px solid #537E8C;
+    background-color: rgba(0, 0, 0, 0.17); /* rgba(20, 52, 175, 0.86) */
+}
+
+#audienceText {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  width: 100%;
+  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
+
 #left {
     width: 400px;
     height: 510px;
@@ -57,7 +75,7 @@ a {
 }
 
 #formation-pane {
-  height: 490px;
+  height: 440px;
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
   border-top: 1px solid #537E8C;
@@ -67,7 +85,7 @@ a {
 .formation-screen {
     position: absolute;
     width: 980px;
-    height: 490px;
+    height: 440px;
 }
 
 #audio-strip {
@@ -76,6 +94,7 @@ a {
   border-left: 1px solid #537E8C;
   border-right: 1px solid #537E8C;
   border-bottom: 1px solid #537E8C;
+  border-top: 1px solid #537E8C;
 }
 
 #frames {
