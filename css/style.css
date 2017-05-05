@@ -44,6 +44,12 @@ a {
     height: 542px;
 }
 
+#dragText {
+  text-align: center;
+  padding-top: 200px;
+  color: gray;
+}
+
 #formation-pane {
   height: 490px;
   border-left: 1px solid #537E8C;

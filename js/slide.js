@@ -166,6 +166,7 @@ $(function() {
         drop: function(event, ui) {
             // console.log('dropped');
             // console.log(boundingBox);
+            $("#dragText").empty();
             var dropped;
             var positionX = parseInt(event.pageX);
             var positionY = parseInt(event.pageY);
