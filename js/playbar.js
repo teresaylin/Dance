@@ -21,14 +21,14 @@ function time() {
 }
 
 function addBubble(currentTime, formationNumber){
-    var barpos = $("#bubblebar").offset()
+    // var barpos = $("#bubblebar").offset();
     console.log(currentTime)
     var leftMargin = width * currentTime / duration;
     console.log(leftMargin)
     console.log(document.getElementById('player'))
-    $("#bubblebar").append("<div class='bubble' id='bubble" +formationNumber.toString()+"' formnumber='"+formationNumber.toString()+"' time='"+currentTime+"' style='position : absolute ; top:" +(barpos.top + 5)+ "px; left: "+(barpos.left + leftMargin)+ "px' onclick = 'onBubbleClick(this)'></div>");
+    $("#bubblebar").append("<div class='bubble' id='bubble" +formationNumber.toString()+"' formnumber='"+formationNumber.toString()+"' time='"+currentTime+"' style='position : absolute ; top: 0 px; left: " + leftMargin + "px' onclick = 'onBubbleClick(this)'></div>");
 
-    console.log(barpos)
+    // console.log(barpos)
     console.log($("#bubble" + formationNumber.toString()))
 
     $('#bubble' + previous.toString()).css({'background-color':'black'});

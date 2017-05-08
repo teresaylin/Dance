@@ -219,6 +219,7 @@ a {
   margin-left: 45px;
   width: 920px;
   height: 15px;
+  position: relative;
 }
 
 #audioplayerbar{
@@ -246,5 +247,6 @@ a {
   height: 10px;
   border-radius: 50%;
   background: black;
+  position: absolute;
 }
 
