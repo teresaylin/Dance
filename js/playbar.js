@@ -21,7 +21,7 @@ function time() {
 }
 
 function addBubble(currentTime, formationNumber){
-    var barpos = $("#bubblebar").offset();
+    var barpos = $("#bubblebar").offset()
     console.log(currentTime)
     var leftMargin = width * currentTime / duration;
     console.log(leftMargin)
