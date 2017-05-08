@@ -32,7 +32,7 @@ function addBubble(currentTime, formationNumber){
     console.log($("#bubble" + formationNumber.toString()))
 
     $('#bubble' + previous.toString()).css({'background-color':'black'});
-    $('#bubble' + formationNumber.toString()).css({'background-color':'white'});
+    $('#bubble' + formationNumber.toString()).css({'background-color':'rgb(168, 45, 61)'});
     previous = formationNumber
 }
 
