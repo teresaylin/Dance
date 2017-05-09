@@ -116,6 +116,11 @@ a {
 }
 
 .draggable-icon:hover {
+    -webkit-appearance:none;
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+    -o-transition: 0.2s ease;
+    transition: 0.2s ease;
     -webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.5));
 }
 
@@ -243,10 +248,11 @@ a {
   margin-top: 5px;
   float: left;
   cursor: pointer;
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: black;
+  border: solid 3px black;
   position: absolute;
 }
 

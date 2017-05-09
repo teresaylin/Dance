@@ -32,7 +32,7 @@ function addBubble(currentTime, formationNumber){
     console.log($("#bubble" + formationNumber.toString()))
 
     $('#bubble' + previous.toString()).css({'background-color':'black'});
-    $('#bubble' + formationNumber.toString()).css({'background-color':'rgb(168, 45, 61)'});
+    $('#bubble' + formationNumber.toString()).css({'background-color':'white'});
     previous = formationNumber
 }
 
@@ -61,15 +61,12 @@ function onBubbleMouseOver(evt) {
   var formationID = bubble.getAttribute("formnumber");
   console.log("mousein")
   console.log(evt)
-  evt.style.height = "12px"
-  evt.style.width = "12px"
-  //on_formation_highlight(formationID)
+  evt.style.height = "8px"
+  evt.style.width = "8px"
 }
 
 function onBubbleMouseOut(evt){
-    var formationID = bubble.getAttribute("formnumber");
-    evt.style.height = "10px"
-    evt.style.width = "10px"
+    evt.style.height = "6px"
+    evt.style.width = "6px"
     console.log("mouseout")
-    //on_formation_highlight(formationID)
 }
