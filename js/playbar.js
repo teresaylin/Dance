@@ -58,14 +58,18 @@ function clickPercent(event) {
 
 
 function onBubbleMouseOver(evt) {
+  var formationID = bubble.getAttribute("formnumber");
   console.log("mousein")
   console.log(evt)
   evt.style.height = "12px"
   evt.style.width = "12px"
+  //on_formation_highlight(formationID)
 }
 
 function onBubbleMouseOut(evt){
+    var formationID = bubble.getAttribute("formnumber");
     evt.style.height = "10px"
     evt.style.width = "10px"
     console.log("mouseout")
+    //on_formation_highlight(formationID)
 }
