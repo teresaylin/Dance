@@ -44,7 +44,7 @@ function select_slide(slide_id) {
     selected_formation = "#formation" + slide_id.toString();
     $(selected_formation).show();
     console.log(slide_id.toString())
-    $('#bubble' + slide_id.toString()).css({'background-color':'white'});
+    $('#bubble' + slide_id.toString()).css({'background-color':'rgb(168, 45, 61)'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
     previous = slide_id
     var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");

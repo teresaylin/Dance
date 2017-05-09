@@ -26,7 +26,7 @@ function addBubble(currentTime, formationNumber){
     var leftMargin = width * currentTime / duration;
     console.log(leftMargin)
     console.log(document.getElementById('player'))
-    $("#bubblebar").append("<div class='bubble' id='bubble" +formationNumber.toString()+"' formnumber='"+formationNumber.toString()+"' time='"+currentTime+"' style='position : absolute ; top: 0 px; left: " + leftMargin + "px' onclick = 'onBubbleClick(this)'></div>");
+    $("#bubblebar").append("<div class='bubble' id='bubble" +formationNumber.toString()+"' formnumber='"+formationNumber.toString()+"' time='"+currentTime+"' style='position : absolute ; top: 0 px; left: " + leftMargin + "px' onclick = 'onBubbleClick(this)' onmouseover='onBubbleMouseOver(this)' onmouseout='onBubbleMouseOut(this)'></div>");
 
     // console.log(barpos)
     console.log($("#bubble" + formationNumber.toString()))
@@ -44,6 +44,7 @@ function onBubbleClick(bubble){
 
 
 
+
 function onTimelineClick(event){
     var p = clickPercent(event)
     document.getElementById('player').currentTime = p*document.getElementById('player').duration;
@@ -53,4 +54,18 @@ function onTimelineClick(event){
 
 function clickPercent(event) {
     return (event.clientX - document.getElementById('audioplayerbar').getBoundingClientRect().left) / width;
+}
+
+
+function onBubbleMouseOver(evt) {
+  console.log("mousein")
+  console.log(evt)
+  evt.style.height = "12px"
+  evt.style.width = "12px"
+}
+
+function onBubbleMouseOut(evt){
+    evt.style.height = "10px"
+    evt.style.width = "10px"
+    console.log("mouseout")
 }
