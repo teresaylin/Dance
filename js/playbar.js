@@ -1,4 +1,4 @@
-var width = 920;
+var width = 900;
 var duration = 215.596563; //this is kinda rip
 
 var previous = 0;
