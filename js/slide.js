@@ -207,7 +207,6 @@ $(document).on("mousemove", function(event) {
 $(document).on("mouseup", function(evt) {
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
-    $("#dragText").empty();
 
     // mouse drop position
     mouseStopX = evt.pageX;
@@ -233,7 +232,7 @@ $(document).on("mouseup", function(evt) {
         $(dragIcon).addClass("formation-icon");
         $(dragIcon).removeClass("draggable-icon");
       }
-      
+      $("#dragText").empty();
     } else {
       // dropped outside formation pane
       if (leftFlag == 1) {
