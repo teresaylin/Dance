@@ -30,12 +30,7 @@ function generateNewFormation() {
 }
 
 function select_slide(slide_id) {
-    $(selected_slide).css('border', '1px solid #537E8C');
-    selected_slide = "#formation_stub" + slide_id.toString();
-    $(selected_slide).css('border', '3px solid #537E8C');
-    $(selected_formation).hide();
-    selected_formation = "#formation" + slide_id.toString();
-    $(selected_formation).show();
+    formation_highlight(slide_id);
     console.log(slide_id.toString())
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
@@ -68,10 +63,7 @@ function new_slide() {
   frames.appendChild(slide);
   frames.appendChild(addSlide);
     
-  $(selected_slide).css('border', '1px solid #537E8C');
-  selected_slide = "#formation_stub" + slide_id.toString();
-  $(selected_slide).css('border', '3px solid #537E8C');
-  selected_formation = "#formation" + slide_id.toString();
+  formation_highlight(slide_id);
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
@@ -86,9 +78,9 @@ function new_slide() {
 
 // creates an X for mini formation slides for deletion
 generateX = function(){
-	var redBox = document.createElement("DIV");
+	var redBox = document.createElement("img");
+  redBox.src = "images/close.png";
 	redBox.className = "redBox";
-//    redBox.innerHTML = "X";
 	return redBox;
 }
 
@@ -294,6 +286,8 @@ $(document).on('click',".redBox", function(evt){
   }
 
   var old_slide = slide.id;
+  var stripped_id = parseInt(old_slide.substring(14)); //remove "formation_stub";
+  removeBubble(stripped_id);
 
   slide.id = "remove";
   $("#remove").remove();
@@ -309,6 +303,19 @@ $(document).on('mousemove', function(evt){
 	updateSlideImg();
 });
 
+
+deletePreview = function(id){
+
+}
+
+formation_highlight = function(slide_id){
+  $(selected_slide).css('border', '1px solid #537E8C');
+  selected_slide = "#formation_stub" + slide_id.toString();
+  $(selected_slide).css('border', '3px solid #537E8C');
+  $(selected_formation).hide();
+  selected_formation = "#formation" + slide_id.toString();
+  $(selected_formation).show();
+}
 
 updateSlideImg = function(){
   var slide = $(selected_slide);
