@@ -1,13 +1,6 @@
 var slide_id = 0;
 var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
-var deltaX;
-var deltaY;
-var elementWidth;
-var elementHeight;
-var newX;
-var newY;
-var boundingBox;
 
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
@@ -115,114 +108,153 @@ generateAddSlide = function(){
 	return slide;
 }
 
+// Drag and Drop
+var dragIcon;
+var leftFlag = 0;   // flag for picking up an icon from left menu
+var rightFlag = 0;  // flag for picking up an icon from formation pane
+var deltaX;
+var deltaY;
+var elementWidth;
+var elementHeight;
+var boundingBox;
+var offsetX;
+var offsetY;
+var mouseX;
+var mouseY;
+var currentX;
+var currentY;
+var mouseStopX;
+var mouseStopY;
+
+// clicking on a dancer icon in the left menu
+$(document).on("mousedown", ".draggable-icon", function(evt) {
+  evt.preventDefault();
+  var originalIcon = this;
+  // icon's location (absolute)
+  currentX = parseInt($(originalIcon).offset().left, 10);
+  currentY = parseInt($(originalIcon).offset().top, 10);
+
+  dragIcon = $(this).clone();
+  $(dragIcon).appendTo("#left");
+  $(dragIcon).css({'top': currentY+"px", 'left': currentX+"px", 'position': 'absolute'});
+
+  $(dragIcon).css("z-index", 30);
+  leftFlag = 1;
+
+  // starting mouse location
+  mouseX = parseInt(event.pageX);
+  mouseY = parseInt(event.pageY);
+  
+  // difference between icon and mouse 
+  deltaX = mouseX - currentX;
+  deltaY = mouseY - currentY;
+  // icon's properties
+  elementWidth = parseInt($(dragIcon).css('width'), 10);
+  elementHeight = parseInt($(dragIcon).css('height'), 10);
+});
+
+// clicking on a dancer icon in the formation pane
+$(document).on("mousedown", ".formation-icon", function(evt) {
+  evt.preventDefault();
+  var dragIcon = this;
+  // icon's location (absolute)
+  currentX = parseInt($(dragIcon).offset().left, 10);
+  currentY = parseInt($(dragIcon).offset().top, 10);
+
+  $(dragIcon).css("z-index", 30);
+  rightFlag = 1;
+
+  // starting mouse location
+  mouseX = parseInt(event.pageX);
+  mouseY = parseInt(event.pageY);
+  
+  // difference between icon and mouse 
+  deltaX = mouseX - currentX;
+  deltaY = mouseY - currentY;
+  // icon's properties
+  elementWidth = parseInt($(dragIcon).css('width'), 10);
+  elementHeight = parseInt($(dragIcon).css('height'), 10);
+});
+
+// moving a dancer icon in left menu or formation pane
+$(document).on("mousemove", function(event) {
+  if (leftFlag == 1) {
+    event.preventDefault();
+
+    // displacement
+    var moveX = event.pageX - mouseX;
+    var moveY = event.pageY - mouseY;
+
+    var newX = currentX + moveX;
+    var newY = currentY + moveY;
+    $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
+  }
+
+  else if (rightFlag == 1) {
+    event.preventDefault();
+
+    // displacement
+    var moveX = event.pageX - mouseX;
+    var moveY = event.pageY - mouseY;
+
+    var newX = currentX + moveX - offsetX;    // subtract out formation pane 'left'
+    var newY = currentY + moveY - offsetY;
+    $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
+  }
+});
+
+// dropping a dancer icon
+$(document).on("mouseup", function(evt) {
+  if (leftFlag == 1 || rightFlag == 1) {
+    evt.preventDefault();
+    $("#dragText").empty();
+
+    // mouse drop position
+    mouseStopX = evt.pageX;
+    mouseStopY = evt.pageY;
+
+    // displacement
+    var moveX = event.pageX - mouseX;
+    var moveY = event.pageY - mouseY;
+
+    // drop position of icon (absolute)
+    var dropX = currentX + moveX;
+    var dropY = currentY + moveY;
+
+    // drop position relative to formation pane
+    var finalX = dropX - offsetX;
+    var finalY = dropY - offsetY;
+
+    if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
+      // dropped inside formation pane
+      $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
+      $(dragIcon).appendTo(selected_formation);
+      $(dragIcon).addClass("formation-icon");
+      $(dragIcon).removeClass("draggable-icon");
+    } else {
+      // dropped outside formation pane
+      if (leftFlag == 1) {
+        $(dragIcon).css({'top': currentY+"px", 'left': currentX+"px"});
+      } else if (rightFlag == 1) {
+        currentX -= offsetX;
+        currentY -= offsetY;
+        $(dragIcon).css({'top': currentY+"px", 'left': currentX+"px"});
+      }
+    }
+
+    leftFlag = 0;
+    rightFlag = 0;
+    $(dragIcon).css("z-index", 20);
+  }
+});
+
 // when page loads
 $(function() {
     boundingBox = document.getElementById("formation-pane").getBoundingClientRect();
     console.log('start');
     console.log(boundingBox);
-    var offsetX = parseInt($("#formation-pane").offset().left, 10);
-    var offsetY = parseInt($("#formation-pane").offset().top, 10);
-
-    $(".draggable-icon").draggable({
-        revert: "invalid",
-        scroll: false,
-        stack: ".draggable-icon",
-        helper: "clone",
-        appendTo: "#main",
-        start: function(event, ui) {
-            var dropped = this;
-            var mouseX = parseInt(event.pageX);
-            var mouseY = parseInt(event.pageY);
-            var currentX = parseInt($(dropped).offset().left, 10);
-            var currentY = parseInt($(dropped).offset().top, 10);
-            deltaX = mouseX - currentX;
-            deltaY = mouseY - currentY;
-            elementWidth = parseInt($(dropped).css('width'), 10);
-            elementHeight = parseInt($(dropped).css('height'), 10);
-        }
-    });
-
-    // drop back in menu to delete icons
-    $("#left").droppable({
-        accept: function(e) {
-            if(e.hasClass("formation-icon")) {
-                return true;
-            }
-        },
-
-        drop: function(event, ui) {
-            dropped = ui.draggable;
-            $(dropped).fadeOut(200);
-        }
-    });
-
-    $("#formation-pane").droppable({
-        accept: function(e) {
-            if(e.hasClass("draggable-icon") || e.hasClass("formation-icon")) {
-                return true;
-            }
-            return false;
-        },
-
-        drop: function(event, ui) {
-            // console.log('dropped');
-            // console.log(boundingBox);
-            $("#dragText").empty();
-            var dropped;
-            var positionX = parseInt(event.pageX);
-            var positionY = parseInt(event.pageY);
-            newX = positionX-deltaX;
-            newY = positionY-deltaY;
-
-            console.log('box');
-            console.log(boundingBox);
-            console.log(newX + elementWidth);
-            console.log(newY + elementHeight);
-            
-            if(ui.draggable.hasClass("draggable-icon")) {
-                dropped = ui.draggable.clone();
-                $(dropped).appendTo(selected_formation);
-                $(dropped).addClass("formation-icon");
-                $(dropped).removeClass("draggable-icon");
-                $(dropped).css('position', 'absolute');
-
-                // bound where the icon can be dropped
-                if (newX >= offsetX && newY >= offsetY && newX+elementWidth <= offsetX+boundingBox.width && newY+elementHeight <= offsetY+boundingBox.height) {
-                    $(dropped).css({'top': newY-offsetY, 'left': newX-offsetX});
-                } else {
-                    $(dropped).remove();
-                }
-            } else if (ui.draggable.hasClass("formation-icon")) {
-                dropped = ui.draggable;
-                $(dropped).css('position', 'absolute');
-            }
-            $(dropped).draggable({
-                revert: function(e) {
-                    if (newX >= offsetX && newY >= offsetY && newX+elementWidth <= offsetX+boundingBox.width && newY+elementHeight <= offsetY+boundingBox.height) {
-                        console.log('inside bounding box');
-                        return false;
-                    } else {
-                        // console.log('not inside bounding box');
-                        return true;
-                    }
-                },
-                stack: ".formation-icon",
-                scroll: false,
-                start: function(event, ui) {
-                    // update the deltaX, deltaY, elementWidth, elementHeight
-                    var dropped = this;
-                    var mouseX = parseInt(event.pageX);
-                    var mouseY = parseInt(event.pageY);
-                    var currentX = parseInt($(dropped).offset().left, 10);
-                    var currentY = parseInt($(dropped).offset().top, 10);
-                    deltaX = mouseX - currentX;
-                    deltaY = mouseY - currentY;
-                    elementWidth = parseInt($(dropped).css('width'), 10);
-                    elementHeight = parseInt($(dropped).css('height'), 10);
-                }
-            });
-        }
-    });
+    offsetX = parseInt($("#formation-pane").offset().left, 10);
+    offsetY = parseInt($("#formation-pane").offset().top, 10);
 });
 
 $(document).ready(function() {
@@ -253,8 +285,6 @@ $(document).on('click',".redBox", function(evt){
     selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
     $('#'+selected_slide).css('border', '3px solid #537E8C');
   }
-
-
 });
 
 $(document).on('mousemove', function(evt){
@@ -295,13 +325,11 @@ updateSlideImg = function(){
     var elemX = parseInt(element.style.left);
     var elemY = parseInt(element.style.top);
 
-    var offsetX = Math.round(slideX+document.body.scrollLeft+elemX*conversionFactor);
-    var offsetY = Math.round(slideY+document.body.scrollTop+elemY*conversionFactor);
+    var offset_X = Math.round(slideX+document.body.scrollLeft+elemX*conversionFactor);
+    var offset_Y = Math.round(slideY+document.body.scrollTop+elemY*conversionFactor);
 
-
-    element.style.left = ""+offsetX+"px";
-    element.style.top  = ""+offsetY+"px";
-
+    element.style.left = ""+offset_X+"px";
+    element.style.top  = ""+offset_Y+"px";
 
     slide.appendChild(element);
   }

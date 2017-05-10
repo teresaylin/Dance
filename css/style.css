@@ -48,13 +48,13 @@ a {
     margin: auto; 
 }
 
-#left img  {
+/*#left img  {
     opacity: 50%;
 }
 
 #left img:hover {
     opacity: 100%;
-}
+}*/
 
 #right {
     width: 980px;
@@ -113,6 +113,7 @@ a {
     width: 60px;
     height: 60px;
     cursor: pointer;
+    z-index: 20;
 }
 
 .draggable-icon:hover {
