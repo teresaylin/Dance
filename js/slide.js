@@ -19,22 +19,27 @@ function generateNewFormation() {
 
     if (slide_id != 0) {
         var children = $(selected_formation).children();
+        console.log('CHILDREN of selected formation to be cloned');
+        console.log(children);
         children.each(function() {
             var childClone = $(this).clone();
-            // childClone.className = 'formation-icon';
             childClone.addClass("formation-icon");
+            childClone.addClass(slide_id.toString());
+            childClone.removeClass((slide_id-1).toString());
             $("#formation" + slide_id.toString()).append(childClone);
         });
     }
     return newFormation;
 }
 
+// select a slide, highlight selected slide, hide previous formation, change bubble color, 
+// update position of playbar marker
 function select_slide(slide_id) {
     formation_highlight(slide_id);
     console.log(slide_id.toString())
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
-    previous = slide_id
+    previous = slide_id;
     var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
     console.log(time);
     console.log(document.getElementById('player').currentTime);
@@ -42,20 +47,21 @@ function select_slide(slide_id) {
     
 }
 
-// clones previous formation into new formation
+// clones previous formation stub into new formation stub
 function new_slide() {
   generateNewFormation();
   var slide = generateSlideStub();
 
+  // clone slide stub
   if($(selected_slide).length){// This is not the ready call
   	slide = $(selected_slide)[0].cloneNode(true);
   	slide.id = "formation_stub" + slide_id.toString();
   }
 
   var addSlide = generateAddSlide();
-    
-  var frames = document.getElementById("frames");
-  var frameChildren = frames.childNodes;
+
+  var frames = document.getElementById("frames"); // formation stub window
+  var frameChildren = frames.childNodes;          // get formation stubs
   var size = frameChildren.length;
 
   frames.removeChild(frameChildren[size-1]);
@@ -280,6 +286,7 @@ $(document).on("mouseup", function(evt) {
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
+        $(dragIcon).addClass((slide_id-1).toString());
         $(dragIcon).removeClass("draggable-icon");
       }
       else if (rightFlag == 1) {
@@ -350,7 +357,6 @@ $(document).on('mousemove', function(evt){
 	updateSlideImg();
 });
 
-
 deletePreview = function(id){
 
 }
@@ -364,6 +370,7 @@ formation_highlight = function(slide_id){
   $(selected_formation).show();
 }
 
+// update formation stubs
 updateSlideImg = function(){
   var slide = $(selected_slide);
   var formation_pane = $(selected_formation)[0];
@@ -381,6 +388,9 @@ updateSlideImg = function(){
 
   var slideX = slide_rect.left;
   var slideY = slide_rect.top;
+  // absolute position of slide
+  var slideAbsX = parseInt($(slide).offset().left, 10);
+  var slideAbsY = parseInt($(slide).offset().top, 10);
 
   var minimize_height = slide_rect.height;
   var minimize_width = slide_rect.width;
@@ -397,8 +407,8 @@ updateSlideImg = function(){
     var elemX = parseInt(element.style.left);
     var elemY = parseInt(element.style.top);
 
-    var offset_X = Math.round(slideX+document.body.scrollLeft+elemX*conversionFactor);
-    var offset_Y = Math.round(slideY+document.body.scrollTop+elemY*conversionFactor);
+    var offset_X = Math.round(slideX+document.body.scrollLeft+elemX*conversionFactor - slideAbsX);
+    var offset_Y = Math.round(slideY+document.body.scrollTop+elemY*conversionFactor - slideAbsY);
 
     element.style.left = ""+offset_X+"px";
     element.style.top  = ""+offset_Y+"px";
