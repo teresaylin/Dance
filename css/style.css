@@ -175,7 +175,7 @@ a {
 .slide {
   text-align: center;
   height: 120px;
-  width: 240px;
+  width: 280px;
   margin-top: 2vh;
   margin-right: 20px;
   border: 1px solid #537E8C;
@@ -223,7 +223,7 @@ a {
   position: relative;
   width: 15px;
   top: 37px;
-  left: 115px;
+  left: 135px;
 }
 
 #cross:after {
