@@ -156,7 +156,7 @@ $(document).on("mousedown", ".draggable-icon", function(evt) {
 // clicking on a dancer icon in the formation pane
 $(document).on("mousedown", ".formation-icon", function(evt) {
   evt.preventDefault();
-  var dragIcon = this;
+  dragIcon = this;
   // icon's location (absolute)
   currentX = parseInt($(dragIcon).offset().left, 10);
   currentY = parseInt($(dragIcon).offset().top, 10);
@@ -228,9 +228,12 @@ $(document).on("mouseup", function(evt) {
     if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
-      $(dragIcon).appendTo(selected_formation);
-      $(dragIcon).addClass("formation-icon");
-      $(dragIcon).removeClass("draggable-icon");
+      if (leftFlag == 1) {
+        $(dragIcon).appendTo(selected_formation);
+        $(dragIcon).addClass("formation-icon");
+        $(dragIcon).removeClass("draggable-icon");
+      }
+      
     } else {
       // dropped outside formation pane
       if (leftFlag == 1) {
