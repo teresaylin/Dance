@@ -221,7 +221,7 @@ $(document).on("mousemove", function(event) {
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
 
-    if (dragging && event.pageX >= deleteLeft && event.pageX+elementWidth <= deleteRight && event.pageY <= deleteBot && event.pageY+elementHeight >= deleteTop) {
+    if (dragging && event.pageX >= deleteLeft && event.pageX <= deleteRight && event.pageY <= deleteBot && event.pageY >= deleteTop) {
 //      animating = true;
 //      $("#trash-icon").animate({
 //          height: 110,
@@ -260,8 +260,8 @@ $(document).on("mouseup", function(evt) {
     var moveY = event.pageY - mouseY;
 
     // drop position of icon (absolute)
-    var dropX = currentX + moveX;
-    var dropY = currentY + moveY;
+    var dropX = currentX + moveX + menuX;
+    var dropY = currentY + moveY + menuY;
 
     // drop position relative to formation pane
     var finalX = dropX - offsetX;
@@ -275,14 +275,12 @@ $(document).on("mouseup", function(evt) {
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
       
-    if (dropX >= deleteLeft && dropX+elementWidth <= deleteRight && dropY <= deleteBot && dropY+elementHeight >= deleteTop) {
+    if (dropX >= deleteLeft && dropX <= deleteRight && dropY <= deleteBot && dropY >= deleteTop) {
       unselectTrash()
       $(dragIcon).fadeOut(300);
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       if (leftFlag == 1) {
-        finalX += menuX;
-        finalY += menuY;
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
@@ -290,6 +288,8 @@ $(document).on("mouseup", function(evt) {
         $(dragIcon).removeClass("draggable-icon");
       }
       else if (rightFlag == 1) {
+        finalX -= menuX;
+        finalY -= menuY;
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
       }
       // clear guiding text
