@@ -65,7 +65,7 @@ function clickPercent(event) {
 
 
 function onBubbleMouseOver(evt) {
-  var formationID = bubble.getAttribute("formnumber");
+  var formationID = evt.getAttribute("formnumber");
   console.log("mousein")
   console.log(evt)
   evt.style.height = "8px"
