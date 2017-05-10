@@ -36,6 +36,13 @@ function addBubble(currentTime, formationNumber){
     previous = formationNumber
 }
 
+
+//removes bubble formationNumber, this bubble cannot be restored, so formationNumber bubble will never again exist
+function removeBubble(formationNumber){
+    $( "#bubble" + formationNumber.toString()).remove();
+}
+
+
 function onBubbleClick(bubble){
     var formationID = bubble.getAttribute("formnumber");
 
@@ -70,3 +77,6 @@ function onBubbleMouseOut(evt){
     evt.style.width = "6px"
     console.log("mouseout")
 }
+
+
+
