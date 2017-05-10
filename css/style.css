@@ -44,9 +44,9 @@ a {
     border: 1px solid #537E8C;
     padding-top: 30px;
     text-align: center;
-    overflow: scroll;
     margin: auto; 
     position: relative;
+    z-index: 15;
 }
 
 /*#left img  {
@@ -62,6 +62,7 @@ a {
     margin: auto;
     height: 542px;
     position: relative;
+    z-index: 15;
 }
 
 #dragText {
@@ -115,7 +116,6 @@ a {
     width: 100%;
     background-color: rgba(232, 0, 0, 0.7); /* rgba(20, 52, 175, 0.86) */
     position: absolute;
-    /*bottom: 510px;*/
     top: 340px;
 }
 
@@ -123,7 +123,6 @@ a {
   text-align: center;
   margin-top: 50px;
   margin-bottom: 10px;
-  position: absolute;
   width: 100%;
   font-size: 70px;
   font-family: 'Montserrat', sans-serif;

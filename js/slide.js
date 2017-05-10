@@ -125,14 +125,23 @@ var currentX;
 var currentY;
 var mouseStopX;
 var mouseStopY;
+var menuX;
+var menuY;
 
 // clicking on a dancer icon in the left menu
 $(document).on("mousedown", ".draggable-icon", function(evt) {
   evt.preventDefault();
   var originalIcon = this;
+
   // icon's location (absolute)
   currentX = parseInt($(originalIcon).offset().left, 10);
   currentY = parseInt($(originalIcon).offset().top, 10);
+
+  // clone location
+  menuX = parseInt($("#left").offset().left, 10);
+  menuY = parseInt($("#left").offset().top, 10);
+  currentX -= menuX;
+  currentY -= menuY;
 
   dragIcon = $(this).clone();
   $(dragIcon).appendTo("#left");
@@ -226,17 +235,24 @@ $(document).on("mouseup", function(evt) {
 
     if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
-      $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
       if (leftFlag == 1) {
+        finalX += menuX;
+        finalY += menuY;
+        $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
         $(dragIcon).removeClass("draggable-icon");
       }
+      else if (rightFlag == 1) {
+        $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
+      }
+      // clear guiding text
       $("#dragText").empty();
     } else {
       // dropped outside formation pane
       if (leftFlag == 1) {
         $(dragIcon).css({'top': currentY+"px", 'left': currentX+"px"});
+        $(dragIcon).remove();
       } else if (rightFlag == 1) {
         currentX -= offsetX;
         currentY -= offsetY;
