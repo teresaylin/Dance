@@ -221,7 +221,7 @@ $(document).on("mousemove", function(event) {
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
 
-    if (dragging && event.pageX >= deleteLeft && event.pageX+elementWidth <= deleteRight && event.pageY <= deleteBot && event.pageY+elementHeight >= deleteTop) {
+    if (dragging && event.pageX >= deleteLeft && event.pageX <= deleteRight && event.pageY <= deleteBot && event.pageY >= deleteTop) {
 //      animating = true;
 //      $("#trash-icon").animate({
 //          height: 110,
@@ -275,7 +275,7 @@ $(document).on("mouseup", function(evt) {
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
       
-    if (dropX >= deleteLeft && dropX+elementWidth <= deleteRight && dropY <= deleteBot && dropY+elementHeight >= deleteTop) {
+    if (dropX >= deleteLeft && dropX <= deleteRight && dropY <= deleteBot && dropY >= deleteTop) {
       unselectTrash()
       $(dragIcon).fadeOut(300);
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
