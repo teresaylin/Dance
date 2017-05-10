@@ -85,7 +85,7 @@ function new_slide() {
 // creates an X for mini formation slides for deletion
 generateX = function(){
 	var redBox = document.createElement("img");
-  redBox.src = "images/close.png";
+  redBox.src = "images/close_red.png";
 	redBox.className = "redBox";
 	return redBox;
 }
