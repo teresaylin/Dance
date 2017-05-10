@@ -127,12 +127,15 @@ var mouseStopX;
 var mouseStopY;
 var menuX;
 var menuY;
+var dragging = false;
+var animating = false;
 
 // clicking on a dancer icon in the left menu
 $(document).on("mousedown", ".draggable-icon", function(evt) {
   evt.preventDefault();
   var originalIcon = this;
-
+  dragging = true;
+    
   // icon's location (absolute)
   currentX = parseInt($(originalIcon).offset().left, 10);
   currentY = parseInt($(originalIcon).offset().top, 10);
@@ -166,6 +169,7 @@ $(document).on("mousedown", ".draggable-icon", function(evt) {
 $(document).on("mousedown", ".formation-icon", function(evt) {
   evt.preventDefault();
   dragIcon = this;
+  dragging = true;
   // icon's location (absolute)
   currentX = parseInt($(dragIcon).offset().left, 10);
   currentY = parseInt($(dragIcon).offset().top, 10);
@@ -210,13 +214,45 @@ $(document).on("mousemove", function(event) {
     var newY = currentY + moveY - offsetY;
     $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
   }
+    
+    var deleteBox = $("#trash").offset();
+    var leftBox = $("#left").offset();
+    var mainBox = $("#main").offset();
+    var deleteLeft = deleteBox.left;
+    var deleteRight = deleteLeft + $("#trash").width();
+    var deleteTop = deleteBox.top;
+    var deleteBot = deleteTop + $("#trash").height();
+
+    if (dragging && event.pageX >= deleteLeft && event.pageX+elementWidth <= deleteRight && event.pageY <= deleteBot && event.pageY+elementHeight >= deleteTop) {
+//      animating = true;
+//      $("#trash-icon").animate({
+//          height: 110,
+//          opacity: 1.0
+//      }, 300, function() {
+//          animating = false;
+//      });
+      $("#trash-icon").height(115);
+    }
 });
+
+function unselectTrash() {
+    if (animating) {
+      setTimeout(50);
+      unselectTrash();
+    } else {
+      $("#trash-icon").animate({
+          height: 100,
+          opacity: 0.6
+      }, 300);
+    }
+}
 
 // dropping a dancer icon
 $(document).on("mouseup", function(evt) {
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
-
+    dragging = false;
+      
     // mouse drop position
     mouseStopX = evt.pageX;
     mouseStopY = evt.pageY;
@@ -233,7 +269,18 @@ $(document).on("mouseup", function(evt) {
     var finalX = dropX - offsetX;
     var finalY = dropY - offsetY;
 
-    if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
+    var deleteBox = $("#trash").offset();
+    var leftBox = $("#left").offset();
+    var mainBox = $("#main").offset();
+    var deleteLeft = deleteBox.left;
+    var deleteRight = deleteLeft + $("#trash").width();
+    var deleteTop = deleteBox.top;
+    var deleteBot = deleteTop + $("#trash").height();
+      
+    if (dropX >= deleteLeft && dropX+elementWidth <= deleteRight && dropY <= deleteBot && dropY+elementHeight >= deleteTop) {
+      unselectTrash()
+      $(dragIcon).fadeOut(300);
+    } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       if (leftFlag == 1) {
         finalX += menuX;
