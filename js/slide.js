@@ -30,12 +30,7 @@ function generateNewFormation() {
 }
 
 function select_slide(slide_id) {
-    $(selected_slide).css('border', '1px solid #537E8C');
-    selected_slide = "#formation_stub" + slide_id.toString();
-    $(selected_slide).css('border', '3px solid #537E8C');
-    $(selected_formation).hide();
-    selected_formation = "#formation" + slide_id.toString();
-    $(selected_formation).show();
+    formation_highlight(slide_id);
     console.log(slide_id.toString())
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
     $('#bubble' + previous.toString()).css({'background-color':'black'});
@@ -68,10 +63,7 @@ function new_slide() {
   frames.appendChild(slide);
   frames.appendChild(addSlide);
     
-  $(selected_slide).css('border', '1px solid #537E8C');
-  selected_slide = "#formation_stub" + slide_id.toString();
-  $(selected_slide).css('border', '3px solid #537E8C');
-  selected_formation = "#formation" + slide_id.toString();
+  formation_highlight(slide_id);
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
@@ -86,9 +78,9 @@ function new_slide() {
 
 // creates an X for mini formation slides for deletion
 generateX = function(){
-	var redBox = document.createElement("DIV");
+	var redBox = document.createElement("img");
+  redBox.src = "images/close.png";
 	redBox.className = "redBox";
-//    redBox.innerHTML = "X";
 	return redBox;
 }
 
@@ -125,14 +117,26 @@ var currentX;
 var currentY;
 var mouseStopX;
 var mouseStopY;
+var menuX;
+var menuY;
+var dragging = false;
+var animating = false;
 
 // clicking on a dancer icon in the left menu
 $(document).on("mousedown", ".draggable-icon", function(evt) {
   evt.preventDefault();
   var originalIcon = this;
+  dragging = true;
+    
   // icon's location (absolute)
   currentX = parseInt($(originalIcon).offset().left, 10);
   currentY = parseInt($(originalIcon).offset().top, 10);
+
+  // clone location
+  menuX = parseInt($("#left").offset().left, 10);
+  menuY = parseInt($("#left").offset().top, 10);
+  currentX -= menuX;
+  currentY -= menuY;
 
   dragIcon = $(this).clone();
   $(dragIcon).appendTo("#left");
@@ -157,6 +161,7 @@ $(document).on("mousedown", ".draggable-icon", function(evt) {
 $(document).on("mousedown", ".formation-icon", function(evt) {
   evt.preventDefault();
   dragIcon = this;
+  dragging = true;
   // icon's location (absolute)
   currentX = parseInt($(dragIcon).offset().left, 10);
   currentY = parseInt($(dragIcon).offset().top, 10);
@@ -201,13 +206,45 @@ $(document).on("mousemove", function(event) {
     var newY = currentY + moveY - offsetY;
     $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
   }
+    
+    var deleteBox = $("#trash").offset();
+    var leftBox = $("#left").offset();
+    var mainBox = $("#main").offset();
+    var deleteLeft = deleteBox.left;
+    var deleteRight = deleteLeft + $("#trash").width();
+    var deleteTop = deleteBox.top;
+    var deleteBot = deleteTop + $("#trash").height();
+
+    if (dragging && event.pageX >= deleteLeft && event.pageX+elementWidth <= deleteRight && event.pageY <= deleteBot && event.pageY+elementHeight >= deleteTop) {
+//      animating = true;
+//      $("#trash-icon").animate({
+//          height: 110,
+//          opacity: 1.0
+//      }, 300, function() {
+//          animating = false;
+//      });
+      $("#trash-icon").height(115);
+    }
 });
+
+function unselectTrash() {
+    if (animating) {
+      setTimeout(50);
+      unselectTrash();
+    } else {
+      $("#trash-icon").animate({
+          height: 100,
+          opacity: 0.6
+      }, 300);
+    }
+}
 
 // dropping a dancer icon
 $(document).on("mouseup", function(evt) {
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
-
+    dragging = false;
+      
     // mouse drop position
     mouseStopX = evt.pageX;
     mouseStopY = evt.pageY;
@@ -224,19 +261,37 @@ $(document).on("mouseup", function(evt) {
     var finalX = dropX - offsetX;
     var finalY = dropY - offsetY;
 
-    if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
+    var deleteBox = $("#trash").offset();
+    var leftBox = $("#left").offset();
+    var mainBox = $("#main").offset();
+    var deleteLeft = deleteBox.left;
+    var deleteRight = deleteLeft + $("#trash").width();
+    var deleteTop = deleteBox.top;
+    var deleteBot = deleteTop + $("#trash").height();
+      
+    if (dropX >= deleteLeft && dropX+elementWidth <= deleteRight && dropY <= deleteBot && dropY+elementHeight >= deleteTop) {
+      unselectTrash()
+      $(dragIcon).fadeOut(300);
+    } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
-      $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
       if (leftFlag == 1) {
+        finalX += menuX;
+        finalY += menuY;
+        $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
         $(dragIcon).removeClass("draggable-icon");
       }
+      else if (rightFlag == 1) {
+        $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
+      }
+      // clear guiding text
       $("#dragText").empty();
     } else {
       // dropped outside formation pane
       if (leftFlag == 1) {
         $(dragIcon).css({'top': currentY+"px", 'left': currentX+"px"});
+        $(dragIcon).remove();
       } else if (rightFlag == 1) {
         currentX -= offsetX;
         currentY -= offsetY;
@@ -278,6 +333,8 @@ $(document).on('click',".redBox", function(evt){
   }
 
   var old_slide = slide.id;
+  var stripped_id = parseInt(old_slide.substring(14)); //remove "formation_stub";
+  removeBubble(stripped_id);
 
   slide.id = "remove";
   $("#remove").remove();
@@ -293,6 +350,19 @@ $(document).on('mousemove', function(evt){
 	updateSlideImg();
 });
 
+
+deletePreview = function(id){
+
+}
+
+formation_highlight = function(slide_id){
+  $(selected_slide).css('border', '1px solid #537E8C');
+  selected_slide = "#formation_stub" + slide_id.toString();
+  $(selected_slide).css('border', '3px solid #537E8C');
+  $(selected_formation).hide();
+  selected_formation = "#formation" + slide_id.toString();
+  $(selected_formation).show();
+}
 
 updateSlideImg = function(){
   var slide = $(selected_slide);
