@@ -211,6 +211,8 @@ $(document).on("mousemove", function(event) {
     var newX = currentX + moveX - offsetX;    // subtract out formation pane 'left'
     var newY = currentY + moveY - offsetY;
     $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
+    $("#trash").css('background-color', 'rgba(193, 46, 46, 1)');
+    $("#trash-icon").css('opacity', 1);
   }
     
     var deleteBox = $("#trash").offset();
@@ -247,6 +249,7 @@ function unselectTrash() {
 
 // dropping a dancer icon
 $(document).on("mouseup", function(evt) {
+  $("#trash").css('background-color', 'gainsboro');
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
     dragging = false;
