@@ -181,6 +181,7 @@ a {
   border: 1px solid #537E8C;
   display: inline-block;
   cursor: pointer;
+  position: relative;
 /*
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
@@ -205,6 +206,8 @@ a {
   width: 20px;
   height: 20px;
   position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 
