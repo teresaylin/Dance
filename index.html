@@ -28,12 +28,13 @@
         </div>
         <div class="modal-body">
           <label class="btn btn-default btn-file">
-            Browse <input id="uploadfile" type="file" style="display: none;">
+            Browse <input id="uploadfile" type="file" onChange="chooseFile()" style="display: none;">
             </label>
+            <div id="fileName"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+          <button id="confirm" type="button" class="btn btn-default" data-dismiss="modal" disabled>Confirm</button>
 
         </div>
       </div>
