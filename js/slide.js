@@ -189,7 +189,7 @@ $(document).on("mousedown", ".formation-icon", function(evt) {
 
 // moving a dancer icon in left menu or formation pane
 $(document).on("mousemove", function(event) {
-  if (leftFlag == 1) {
+  if (leftFlag == 1 || rightFlag == 1) {
     event.preventDefault();
 
     // displacement
@@ -198,23 +198,18 @@ $(document).on("mousemove", function(event) {
 
     var newX = currentX + moveX;
     var newY = currentY + moveY;
+
+    if (rightFlag == 1) {
+      newX -= offsetX;
+      newY -= offsetY;
+      // activate trash region
+      $("#trash").css('background-color', 'rgba(193, 46, 46, 1)');
+      $("#trash-icon").css('opacity', 1);
+    }
+
     $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
   }
 
-  else if (rightFlag == 1) {
-    event.preventDefault();
-
-    // displacement
-    var moveX = event.pageX - mouseX;
-    var moveY = event.pageY - mouseY;
-
-    var newX = currentX + moveX - offsetX;    // subtract out formation pane 'left'
-    var newY = currentY + moveY - offsetY;
-    $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
-    $("#trash").css('background-color', 'rgba(193, 46, 46, 1)');
-    $("#trash-icon").css('opacity', 1);
-  }
-    
     var deleteBox = $("#trash").offset();
     var leftBox = $("#left").offset();
     var mainBox = $("#main").offset();
