@@ -224,13 +224,6 @@ $(document).on("mousemove", function(event) {
     var deleteBot = deleteTop + $("#trash").height();
 
     if (dragging && event.pageX >= deleteLeft && event.pageX <= deleteRight && event.pageY <= deleteBot && event.pageY >= deleteTop) {
-//      animating = true;
-//      $("#trash-icon").animate({
-//          height: 110,
-//          opacity: 1.0
-//      }, 300, function() {
-//          animating = false;
-//      });
       $("#trash-icon").height(115);
     }
 });
@@ -249,23 +242,22 @@ function unselectTrash() {
 
 // dropping a dancer icon
 $(document).on("mouseup", function(evt) {
-  $("#trash").css('background-color', 'gainsboro');
-  $("#trash-icon").css('opacity', 0.6);
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
     dragging = false;
+    $("#trash").css('background-color', 'gainsboro');
+    $("#trash-icon").css('opacity', 0.6);
+    unselectTrash();
       
     // mouse drop position
     mouseStopX = evt.pageX;
     mouseStopY = evt.pageY;
 
     // displacement
-    var moveX = event.pageX - mouseX;
-    var moveY = event.pageY - mouseY;
+    var moveX = mouseStopX - mouseX;
+    var moveY = mouseStopY - mouseY;
 
     // drop position of icon (absolute)
-    // var dropX = currentX + moveX + menuX;
-    // var dropY = currentY + moveY + menuY;
     var dropX = currentX + moveX;
     var dropY = currentY + moveY;
     if (leftFlag == 1) {
@@ -284,9 +276,9 @@ $(document).on("mouseup", function(evt) {
     var deleteRight = deleteLeft + $("#trash").width();
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
-      
-    if (dropX >= deleteLeft && dropX <= deleteRight && dropY <= deleteBot && dropY >= deleteTop) {
-      unselectTrash()
+    
+    // dropping inside trash region
+    if (mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
       $(dragIcon).fadeOut(300);
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
