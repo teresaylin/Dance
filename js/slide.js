@@ -132,7 +132,6 @@ var animating = false;
 $(document).on("mousedown", ".draggable-icon", function(evt) {
   evt.preventDefault();
   var originalIcon = this;
-  dragging = true;
     
   // icon's location (absolute)
   currentX = parseInt($(originalIcon).offset().left, 10);
@@ -239,7 +238,6 @@ function unselectTrash() {
 $(document).on("mouseup", function(evt) {
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
-    dragging = false;
     $("#trash").css('background-color', 'gainsboro');
     $("#trash-icon").css('opacity', 0.6);
     unselectTrash();
@@ -273,8 +271,9 @@ $(document).on("mouseup", function(evt) {
     var deleteBot = deleteTop + $("#trash").height();
     
     // dropping inside trash region
-    if (mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
+    if (dragging && mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
       $(dragIcon).fadeOut(150);
+      dragging = false;
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       if (leftFlag == 1) {
