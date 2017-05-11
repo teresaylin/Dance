@@ -2,6 +2,46 @@ var width = 900;
 var duration = 215.596563; //this is kinda rip
 
 var previous = 0;
+onplayhead = false;
+
+window.addEventListener('mouseup', mouseUp, false);
+
+function mouseDown() {
+    onplayhead = true;
+    window.addEventListener('mousemove', moveplayhead, true);
+}
+
+
+function mouseUp(event) {
+    if (onplayhead == true) {
+        var p = clickPercent(event)
+        document.getElementById('player').currentTime = p*document.getElementById('player').duration;
+        console.log(p); 
+        window.removeEventListener('mousemove', moveplayhead, true);       
+    }
+    onplayhead = false;
+}
+
+function moveplayhead(event) {
+    console.log("moving")
+    var p = clickPercent(event)
+    document.getElementById('player').currentTime = p*document.getElementById('player').duration;
+    console.log(p);
+    // var newMargLeft = event.clientX - getPosition(timeline);
+
+    // if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+    //     playhead.style.marginLeft = newMargLeft + "px";
+    // }
+    // if (newMargLeft < 0) {
+    //     playhead.style.marginLeft = "0px";
+    // }
+    // if (newMargLeft > timelineWidth) {
+    //     playhead.style.marginLeft = timelineWidth + "px";
+    // }
+}
+
+
+
 
 function play_playbar() {
     var playerthing = document.getElementById('player');

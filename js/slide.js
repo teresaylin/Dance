@@ -317,6 +317,10 @@ $(function() {
 });
 
 $(document).ready(function() {
+
+
+    document.getElementById('playmarker').addEventListener('mousedown', mouseDown, false);
+
     // adds a + slide in the bottom #frames div
     var start = generateAddSlide();
     document.getElementById("frames").append(start);
