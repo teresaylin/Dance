@@ -274,7 +274,7 @@ $(document).on("mouseup", function(evt) {
     
     // dropping inside trash region
     if (mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
-      $(dragIcon).fadeOut(300);
+      $(dragIcon).fadeOut(150);
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       if (leftFlag == 1) {
