@@ -250,6 +250,7 @@ function unselectTrash() {
 // dropping a dancer icon
 $(document).on("mouseup", function(evt) {
   $("#trash").css('background-color', 'gainsboro');
+  $("#trash-icon").css('opacity', 0.6);
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
     dragging = false;
