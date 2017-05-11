@@ -175,12 +175,13 @@ a {
 .slide {
   text-align: center;
   height: 120px;
-  width: 240px;
+  width: 280px;
   margin-top: 2vh;
   margin-right: 20px;
   border: 1px solid #537E8C;
   display: inline-block;
   cursor: pointer;
+  position: relative;
 /*
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
@@ -205,6 +206,8 @@ a {
   width: 20px;
   height: 20px;
   position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 
@@ -220,7 +223,7 @@ a {
   position: relative;
   width: 15px;
   top: 37px;
-  left: 115px;
+  left: 135px;
 }
 
 #cross:after {
@@ -283,4 +286,18 @@ a {
 
 #trash-icon {
     opacity: 0.6;
+}
+
+.modal-dialog {
+  top: 200px;
+}
+
+.modal-title {
+  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.modal-body {
+  text-align: center;
 }
