@@ -287,3 +287,17 @@ a {
 #trash-icon {
     opacity: 0.6;
 }
+
+.modal-dialog {
+  top: 200px;
+}
+
+.modal-title {
+  font-size: 25px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.modal-body {
+  text-align: center;
+}
