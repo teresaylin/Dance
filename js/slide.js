@@ -10,15 +10,22 @@ $(document).on('click', '#audioplayerbar', function(evt) {
   // find previous formation
   var prevTime = findPreviousTime(currentTime);
   previous_formation = formationMapping[prevTime];
+  var prev_slide_id = parseInt(previous_formation.slice(-1), 10)
 
-  // show previous formation
-  formation_highlight(parseInt(previous_formation.slice(-1), 10));
+  // show previous formation and change activated bubble
+  formation_highlight(prev_slide_id);
+  changeBubbleColor(prev_slide_id);
 });
 
+var prevTime = 0;
 function findPreviousTime(currentTime) {
-  var prevTime = 0;
+  // var prevTime = 0;
+  prevTime = 0;
+  console.log('currentTime: ' + currentTime);
   for(var time in formationMapping) {
+    console.log(time);
     if(time > prevTime && time <= currentTime) {
+      console.log('valid');
       prevTime = time;
     }
   }
@@ -65,15 +72,17 @@ function generateNewFormation() {
 // update position of playbar marker
 function select_slide(slide_id) {
     formation_highlight(slide_id);
-    console.log(slide_id.toString())
-    $('#bubble' + slide_id.toString()).css({'background-color':'white'});
-    $('#bubble' + previous.toString()).css({'background-color':'black'});
-    previous = slide_id;
+    console.log(slide_id.toString());
+    changeBubbleColor(slide_id);
     var time = $('#bubble' + slide_id.toString())[0].getAttribute("time");
     console.log(time);
     console.log(document.getElementById('player').currentTime);
     document.getElementById('player').currentTime = time;
-    
+}
+
+function changeBubbleColor(slide_id) {
+    $('.bubble').css({'background-color':'black'});
+    $('#bubble' + slide_id.toString()).css({'background-color':'white'});
 }
 
 // clones previous formation stub into new formation stub
