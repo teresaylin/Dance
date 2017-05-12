@@ -105,7 +105,7 @@ function removeBubble(formationNumber){
     var frames = document.getElementById("frames"); // formation stub window
     var frameChildren = frames.childNodes;
     for(var i = 1;i<frameChildren.length;i++){
-      if(frameChildren[i] === selected_slide){
+      if("#"+frameChildren[i].id === selected_slide){
         select_slide(parseInt(frameChildren[i-1].id.substring(14)));
         break;
       }

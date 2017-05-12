@@ -368,6 +368,12 @@ $(document).ready(function() {
     var start = generateAddSlide();
     document.getElementById("frames").append(start);
     new_slide();
+
+    var first_slide = document.getElementById("frames").childNodes[0];
+    var x = first_slide.getElementsByClassName("redBox")[0];
+    if(x){//Keep first slide undeletable.
+      first_slide.removeChild(x);
+    }
 });
 
 $(document).on('click',"#newSlide", function(evt){
@@ -459,5 +465,11 @@ updateSlideImg = function(){
     element.style.top  = ""+offset_Y+"px";
 
     slide.appendChild(element);
+  }
+
+  var first_slide = document.getElementById("frames").childNodes[0];
+  var x = first_slide.getElementsByClassName("redBox")[0];
+  if(x){//Keep first slide undeletable.
+    first_slide.removeChild(x);
   }
 }
