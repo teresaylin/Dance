@@ -3,7 +3,7 @@ var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
 
 var formationMapping = {};    // maps time to formation id
-var previous_formation = "#formation0";
+var previous_formation = "formation0";
 
 $(document).on('click', '#audioplayerbar', function(evt) {
   var currentTime = $("#player")[0].currentTime;
@@ -406,7 +406,7 @@ formation_highlight = function(slide_id){
   $(selected_formation).show();
 
   // update previous_formation
-  previous_formation = "#formation" + slide_id.toString();
+  previous_formation = "formation" + slide_id.toString();
 }
 
 // update formation stubs
