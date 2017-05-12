@@ -70,7 +70,7 @@ function time() {
     for(i = 0; i < bubbleDivs.length;i++)
     {
         bubbleTime = bubbleDivs[i].getAttribute("time"); 
-        if (currentTime - bubbleTime >= 0 && currentTime - bubbleTime < bestval){
+        if (currentTime - bubbleTime > -1 && currentTime - bubbleTime < bestval){
             slideid = bubbleDivs[i].getAttribute("formnumber");
             bestval = currentTime - bubbleTime
             console.log(slideid)
