@@ -325,6 +325,7 @@ $(document).on("mouseup", function(evt) {
     // dropping inside trash region
     if (dragging && mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
       $(dragIcon).fadeOut(150);
+      setTimeout(function(){updateSlideImg();},200);
       dragging = false;
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
@@ -339,8 +340,10 @@ $(document).on("mouseup", function(evt) {
         $(dragIcon).removeClass("draggable-icon");
       }
       else if (rightFlag == 1) {
+        autosave_new_slide();
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
       }
+      updateSlideImg();
       // clear guiding text
       $("#dragText").empty();
     } else {
@@ -413,9 +416,9 @@ $(document).on('click',".redBox", function(evt){
   }
 });
 
-$(document).on('mousemove', function(evt){
-	updateSlideImg();
-});
+// $(document).on('mousemove', function(evt){
+// 	updateSlideImg();
+// });
 
 formation_highlight = function(slide_id){
   $(selected_slide).css('border', '1px solid #537E8C');
