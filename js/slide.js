@@ -254,7 +254,7 @@ $(document).on("mousemove", function(event) {
       newX -= offsetX;
       newY -= offsetY;
       // activate trash region
-      $("#trash").css('background-color', 'rgba(193, 46, 46, 1)');
+      $("#trash").css('background-color', '#d691a1');
       $("#trash-icon").css('opacity', 1);
     }
 
