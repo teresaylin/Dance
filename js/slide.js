@@ -85,6 +85,14 @@ function changeBubbleColor(slide_id) {
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
 }
 
+function autosave_new_slide(){
+  var current_time = document.getElementById('player').currentTime; 
+  var checkpoint_time = $('#bubble' + previous_formation.substring(9))[0].getAttribute("time");
+  if(current_time-checkpoint_time > 1){
+    new_slide();
+  }
+}
+
 // clones previous formation stub into new formation stub
 function new_slide() {
   generateNewFormation();
@@ -323,11 +331,7 @@ $(document).on("mouseup", function(evt) {
       if (leftFlag == 1) {
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
 
-        var current_time = document.getElementById('player').currentTime; 
-        var checkpoint_time = $('#bubble' + previous_formation.substring(9))[0].getAttribute("time");
-        if(current_time-checkpoint_time > 1){
-          new_slide();
-        }
+        autosave_new_slide();
 
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
@@ -381,6 +385,23 @@ $(document).ready(function() {
     if(x){//Keep first slide undeletable.
       first_slide.removeChild(x);
     }
+
+    tooltipDiv = document.createElement("div");
+    tooltipDiv.className = "tooltip";
+
+    tooltip = document.createElement("img");
+    tooltip.style.width = "40px";
+    tooltip.style.height = "40px";
+    tooltip.src = "images/tooltip.png";
+    
+    tooltiptext = document.createElement("span");
+    tooltiptext.className = "tooltiptext"
+    tooltiptext.innerHTML = "To create a new frame, move the indicator in the audio track and add a dancer."
+
+    tooltipDiv.appendChild(tooltip);
+    tooltipDiv.appendChild(tooltiptext);
+
+    document.getElementsByTagName("body")[0].appendChild(tooltipDiv);
 });
 
 $(document).on('click',"#newSlide", function(evt){
@@ -411,10 +432,6 @@ $(document).on('click',".redBox", function(evt){
 $(document).on('mousemove', function(evt){
 	updateSlideImg();
 });
-
-deletePreview = function(id){
-
-}
 
 formation_highlight = function(slide_id){
   $(selected_slide).css('border', '1px solid #537E8C');
