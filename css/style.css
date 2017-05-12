@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-.nav {
+#nav {
     width: 1400px;
     margin: auto;
     height: 50px;
@@ -325,19 +325,13 @@ a {
 /*Inspired by the link below.*/
 /*https://www.w3schools.com/css/css_tooltip.asp*/
 
-/* Tooltip container */
 .tooltip {
-    position: absolute;
-    margin: auto;
-    margin-top: 5px;
-    width: 1400px;
-    height: 40px;
+    margin-top: 10px;
     top: 7px;
-    left: 840px;
+    float: right;
+    right: 0px;
 }
 
-
-/* Tooltip text */
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 540px;
@@ -347,13 +341,16 @@ a {
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
-    left: 0px;
-    top: 0px;
- 
-    /* Position the tooltip text - see examples below! */
     position: absolute;
-    z-index: 1;
+    z-index: 5;
+}
+
+.tooltiptext {
+    float: right;
+    margin-top: 10px;
+    margin-right: 50px;
+    top: 5px;
+    right: 5px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */

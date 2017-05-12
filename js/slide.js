@@ -386,24 +386,6 @@ $(document).ready(function() {
       first_slide.removeChild(x);
     }
 
-    tooltipDiv = document.createElement("div");
-    tooltipDiv.className = "tooltip";
-
-    tooltip = document.createElement("img");
-    tooltip.style.width = "40px";
-    tooltip.style.height = "40px";
-    tooltip.src = "images/tooltip.png";
-    tooltip.style.position = "absolute";
-    tooltip.style.left = "540px";
-    
-    tooltiptext = document.createElement("span");
-    tooltiptext.className = "tooltiptext"
-    tooltiptext.innerHTML = "To create a new frame, move the indicator in the audio track and add a dancer."
-
-    tooltipDiv.appendChild(tooltip);
-    tooltipDiv.appendChild(tooltiptext);
-
-    document.getElementsByTagName("body")[0].appendChild(tooltipDiv);
 });
 
 $(document).on('click',"#newSlide", function(evt){
