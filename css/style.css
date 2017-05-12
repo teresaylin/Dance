@@ -282,25 +282,23 @@ a {
 .modal-title#main {
   width: 100%;
   font-size: 35px;
-  font-family: 'Courgette', cursive;
+font-family: 'Marck Script', cursive;
   padding-bottom: 5px;
   padding-left: 148px;
-  color: rgba(61, 56, 214, 0.8);
+  color: #386f7c;
 }
 
 .modal-title#description {
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
+  font: 16px "Open Sans", sans-serif;
   text-align: center;
-  color: rgba(144, 140, 140, 0.72);
+  color: #9bb7bd;
 }
 
 .modal-title#chooseSong {
-  font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font: 20px "Open Sans", sans-serif;
   text-align: center;
   padding-bottom: 10px;
-  color: rgba(61, 56, 214, 0.8);
+  color: #386f7c;
 }
 
 .modal-body {
