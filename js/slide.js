@@ -132,7 +132,6 @@ var animating = false;
 $(document).on("mousedown", ".draggable-icon", function(evt) {
   evt.preventDefault();
   var originalIcon = this;
-  dragging = true;
     
   // icon's location (absolute)
   currentX = parseInt($(originalIcon).offset().left, 10);
@@ -189,7 +188,7 @@ $(document).on("mousedown", ".formation-icon", function(evt) {
 
 // moving a dancer icon in left menu or formation pane
 $(document).on("mousemove", function(event) {
-  if (leftFlag == 1) {
+  if (leftFlag == 1 || rightFlag == 1) {
     event.preventDefault();
 
     // displacement
@@ -198,21 +197,18 @@ $(document).on("mousemove", function(event) {
 
     var newX = currentX + moveX;
     var newY = currentY + moveY;
+
+    if (rightFlag == 1) {
+      newX -= offsetX;
+      newY -= offsetY;
+      // activate trash region
+      $("#trash").css('background-color', 'rgba(193, 46, 46, 1)');
+      $("#trash-icon").css('opacity', 1);
+    }
+
     $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
   }
 
-  else if (rightFlag == 1) {
-    event.preventDefault();
-
-    // displacement
-    var moveX = event.pageX - mouseX;
-    var moveY = event.pageY - mouseY;
-
-    var newX = currentX + moveX - offsetX;    // subtract out formation pane 'left'
-    var newY = currentY + moveY - offsetY;
-    $(dragIcon).css({'top': newY+"px", 'left': newX+"px"});
-  }
-    
     var deleteBox = $("#trash").offset();
     var leftBox = $("#left").offset();
     var mainBox = $("#main").offset();
@@ -222,13 +218,6 @@ $(document).on("mousemove", function(event) {
     var deleteBot = deleteTop + $("#trash").height();
 
     if (dragging && event.pageX >= deleteLeft && event.pageX <= deleteRight && event.pageY <= deleteBot && event.pageY >= deleteTop) {
-//      animating = true;
-//      $("#trash-icon").animate({
-//          height: 110,
-//          opacity: 1.0
-//      }, 300, function() {
-//          animating = false;
-//      });
       $("#trash-icon").height(115);
     }
 });
@@ -249,19 +238,25 @@ function unselectTrash() {
 $(document).on("mouseup", function(evt) {
   if (leftFlag == 1 || rightFlag == 1) {
     evt.preventDefault();
-    dragging = false;
+    $("#trash").css('background-color', 'gainsboro');
+    $("#trash-icon").css('opacity', 0.6);
+    unselectTrash();
       
     // mouse drop position
     mouseStopX = evt.pageX;
     mouseStopY = evt.pageY;
 
     // displacement
-    var moveX = event.pageX - mouseX;
-    var moveY = event.pageY - mouseY;
+    var moveX = mouseStopX - mouseX;
+    var moveY = mouseStopY - mouseY;
 
     // drop position of icon (absolute)
-    var dropX = currentX + moveX + menuX;
-    var dropY = currentY + moveY + menuY;
+    var dropX = currentX + moveX;
+    var dropY = currentY + moveY;
+    if (leftFlag == 1) {
+      dropX += menuX;
+      dropY += menuY;
+    }
 
     // drop position relative to formation pane
     var finalX = dropX - offsetX;
@@ -274,10 +269,11 @@ $(document).on("mouseup", function(evt) {
     var deleteRight = deleteLeft + $("#trash").width();
     var deleteTop = deleteBox.top;
     var deleteBot = deleteTop + $("#trash").height();
-      
-    if (dropX >= deleteLeft && dropX <= deleteRight && dropY <= deleteBot && dropY >= deleteTop) {
-      unselectTrash()
-      $(dragIcon).fadeOut(300);
+    
+    // dropping inside trash region
+    if (dragging && mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
+      $(dragIcon).fadeOut(150);
+      dragging = false;
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
       if (leftFlag == 1) {
@@ -288,8 +284,6 @@ $(document).on("mouseup", function(evt) {
         $(dragIcon).removeClass("draggable-icon");
       }
       else if (rightFlag == 1) {
-        finalX -= menuX;
-        finalY -= menuY;
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
       }
       // clear guiding text
@@ -322,6 +316,10 @@ $(function() {
 });
 
 $(document).ready(function() {
+
+
+    document.getElementById('playmarker').addEventListener('mousedown', mouseDown, false);
+
     // adds a + slide in the bottom #frames div
     var start = generateAddSlide();
     document.getElementById("frames").append(start);
