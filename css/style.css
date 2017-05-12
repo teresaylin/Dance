@@ -1,5 +1,4 @@
 body {
-  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
   font: 14px "Open Sans", sans-serif;
 }
 
@@ -308,9 +307,6 @@ a {
   text-align: center;
 }
 
-/*Inspired by the link below.*/
-/*https://www.w3schools.com/css/css_tooltip.asp*/
-
 .tooltip {
     margin-top: 10px;
     top: 7px;
@@ -319,13 +315,15 @@ a {
 }
 
 .tooltip .tooltiptext {
+    font: 14px "Open Sans", sans-serif;
     visibility: hidden;
-    width: 540px;
+    width: 530px;
     background-color: black;
     padding-top: 8px;
     padding-bottom: 8px;
     color: #fff;
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
     border-radius: 6px;
     position: absolute;
     z-index: 5;
