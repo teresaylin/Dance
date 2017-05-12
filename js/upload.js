@@ -6,6 +6,7 @@ function chooseFile() {
     console.log("hi")
     console.log($("#uploadfile")[0].value)
      $("#confirm")[0].disabled = false
-    $("#fileName")[0].innerHTML = $("#uploadfile")[0].value
+    arr = $("#uploadfile")[0].value.split("\\")
+    $("#fileName")[0].innerHTML = arr[arr.length -1]
 }
 
