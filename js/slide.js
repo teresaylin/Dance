@@ -325,7 +325,7 @@ $(document).on("mouseup", function(evt) {
     // dropping inside trash region
     if (dragging && mouseStopX >= deleteLeft && mouseStopX <= deleteRight && mouseStopY <= deleteBot && mouseStopY >= deleteTop) {
       $(dragIcon).fadeOut(150);
-      setTimeout(function(){updateSlideImg();},200);
+      setTimeout(function(){autosave_new_slide();updateSlideImg();},200);
       dragging = false;
     } else if (dropX >= offsetX && dropX+elementWidth <= offsetX+boundingBox.width && dropY >= offsetY && dropY+elementHeight <= offsetY+boundingBox.height) {
       // dropped inside formation pane
