@@ -327,12 +327,15 @@ a {
 
 /* Tooltip container */
 .tooltip {
-    position: relative;
+    position: absolute;
     margin: auto;
     margin-top: 5px;
     width: 1400px;
     height: 40px;
+    top: 7px;
+    left: 840px;
 }
+
 
 /* Tooltip text */
 .tooltip .tooltiptext {
@@ -345,6 +348,8 @@ a {
     text-align: center;
     border-radius: 6px;
     font-family: 'Montserrat', sans-serif;
+    left: 0px;
+    top: 0px;
  
     /* Position the tooltip text - see examples below! */
     position: absolute;

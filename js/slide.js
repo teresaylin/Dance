@@ -393,6 +393,8 @@ $(document).ready(function() {
     tooltip.style.width = "40px";
     tooltip.style.height = "40px";
     tooltip.src = "images/tooltip.png";
+    tooltip.style.position = "absolute";
+    tooltip.style.left = "540px";
     
     tooltiptext = document.createElement("span");
     tooltiptext.className = "tooltiptext"
