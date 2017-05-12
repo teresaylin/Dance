@@ -322,6 +322,13 @@ $(document).on("mouseup", function(evt) {
       // dropped inside formation pane
       if (leftFlag == 1) {
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
+
+        var current_time = document.getElementById('player').currentTime; 
+        var checkpoint_time = $('#bubble' + previous_formation.substring(9))[0].getAttribute("time");
+        if(current_time-checkpoint_time > 1){
+          new_slide();
+        }
+
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
         $(dragIcon).addClass((slide_id-1).toString());

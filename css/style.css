@@ -206,6 +206,7 @@ a {
 .redBox{
   width: 20px;
   height: 20px;
+  z-index: 100;
   position: absolute;
   top: 0px;
   left: 0px;
