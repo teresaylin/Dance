@@ -3,34 +3,34 @@ var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
 
 var formationMapping = {};    // maps time to formation id
-var previous_formation = "#formation0";
+var previous_formation = "formation0";
 
-$(document).on('click', '#audioplayerbar', function(evt) {
-  var currentTime = $("#player")[0].currentTime;
-  // find previous formation
-  var prevTime = findPreviousTime(currentTime);
-  previous_formation = formationMapping[prevTime];
-  var prev_slide_id = parseInt(previous_formation.substring(9), 10);
+// $(document).on('click', '#audioplayerbar', function(evt) {
+//   var currentTime = $("#player")[0].currentTime;
+//   // find previous formation
+//   var prevTime = findPreviousTime(currentTime);
+//   previous_formation = formationMapping[prevTime];
+//   var prev_slide_id = parseInt(previous_formation.substring(9), 10);
 
-  // show previous formation and change activated bubble
-  formation_highlight(prev_slide_id);
-  changeBubbleColor(prev_slide_id);
-});
+//   // show previous formation and change activated bubble
+//   formation_highlight(prev_slide_id);
+//   changeBubbleColor(prev_slide_id);
+// });
 
-var prevTime = 0;
-function findPreviousTime(currentTime) {
-  // var prevTime = 0;
-  prevTime = 0;
-  console.log('currentTime: ' + currentTime);
-  for(var time in formationMapping) {
-    console.log(time);
-    if(time > prevTime && time <= currentTime) {
-      console.log('valid');
-      prevTime = time;
-    }
-  }
-  return prevTime;
-}
+// // var prevTime = 0;
+// function findPreviousTime(currentTime) {
+//   var prevTime = 0;
+//   // prevTime = 0;
+//   console.log('currentTime: ' + currentTime);
+//   for(var time in formationMapping) {
+//     console.log(time);
+//     if(time > prevTime && time <= currentTime) {
+//       console.log('valid');
+//       prevTime = time;
+//     }
+//   }
+//   return prevTime;
+// }
 
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
@@ -85,6 +85,14 @@ function changeBubbleColor(slide_id) {
     $('#bubble' + slide_id.toString()).css({'background-color':'white'});
 }
 
+function autosave_new_slide(){
+  var current_time = document.getElementById('player').currentTime; 
+  var checkpoint_time = $('#bubble' + previous_formation.substring(9))[0].getAttribute("time");
+  if(current_time-checkpoint_time > 1){
+    new_slide();
+  }
+}
+
 // clones previous formation stub into new formation stub
 function new_slide() {
   generateNewFormation();
@@ -96,18 +104,21 @@ function new_slide() {
   	slide.id = "formation_stub" + slide_id.toString();
   }
 
-  var addSlide = generateAddSlide();
-
   var frames = document.getElementById("frames"); // formation stub window
   var frameChildren = frames.childNodes;          // get formation stubs
   var size = frameChildren.length;
 
-  frames.removeChild(frameChildren[size-1]);
-
-  frames.appendChild(slide);
-  frames.appendChild(addSlide);
-    
-  formation_highlight(slide_id);
+  if($(selected_slide).length){ //This is not the ready call.
+    for(var i = 0;i<size;i++){
+      if("#"+frameChildren[i].id === selected_slide){
+        frames.insertBefore(slide, frameChildren[i].nextSibling);
+      }
+    }
+  }
+  else{//ready call
+    frames.insertBefore(slide, frameChildren[0]);
+  }
+  
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
@@ -116,7 +127,10 @@ function new_slide() {
   })(slide_id);
 
   var currentTime = document.getElementById('player').currentTime;
-  addBubble(currentTime, slide_id)  
+  addBubble(currentTime, slide_id)
+  formation_highlight(slide_id);
+  changeBubbleColor(slide_id);
+
   slide_id += 1;
 }
 
@@ -316,6 +330,9 @@ $(document).on("mouseup", function(evt) {
       // dropped inside formation pane
       if (leftFlag == 1) {
         $(dragIcon).css({'top': finalY+"px", 'left': finalX+"px"});
+
+        autosave_new_slide();
+
         $(dragIcon).appendTo(selected_formation);
         $(dragIcon).addClass("formation-icon");
         $(dragIcon).addClass((slide_id-1).toString());
@@ -359,9 +376,34 @@ $(document).ready(function() {
     document.getElementById('playmarker').addEventListener('mousedown', mouseDown, false);
 
     // adds a + slide in the bottom #frames div
-    var start = generateAddSlide();
-    document.getElementById("frames").append(start);
+    //var start = generateAddSlide();
+    //document.getElementById("frames").append(start);
     new_slide();
+
+    var first_slide = document.getElementById("frames").childNodes[0];
+    var x = first_slide.getElementsByClassName("redBox")[0];
+    if(x){//Keep first slide undeletable.
+      first_slide.removeChild(x);
+    }
+
+    tooltipDiv = document.createElement("div");
+    tooltipDiv.className = "tooltip";
+
+    tooltip = document.createElement("img");
+    tooltip.style.width = "40px";
+    tooltip.style.height = "40px";
+    tooltip.src = "images/tooltip.png";
+    tooltip.style.position = "absolute";
+    tooltip.style.left = "540px";
+    
+    tooltiptext = document.createElement("span");
+    tooltiptext.className = "tooltiptext"
+    tooltiptext.innerHTML = "To create a new frame, move the indicator in the audio track and add a dancer."
+
+    tooltipDiv.appendChild(tooltip);
+    tooltipDiv.appendChild(tooltiptext);
+
+    document.getElementsByTagName("body")[0].appendChild(tooltipDiv);
 });
 
 $(document).on('click',"#newSlide", function(evt){
@@ -370,7 +412,7 @@ $(document).on('click',"#newSlide", function(evt){
 
 $(document).on('click',".redBox", function(evt){
   var slide = evt.target.parentNode;
-  if($("#frames")[0].getElementsByClassName("slide").length == 2)return;
+  //if($("#frames")[0].getElementsByClassName("slide").length == 2)return;
   while(slide.className !== "slide"){
     slide = slide.parentNode;
   }
@@ -393,10 +435,6 @@ $(document).on('mousemove', function(evt){
 	updateSlideImg();
 });
 
-deletePreview = function(id){
-
-}
-
 formation_highlight = function(slide_id){
   $(selected_slide).css('border', '1px solid #537E8C');
   selected_slide = "#formation_stub" + slide_id.toString();
@@ -406,7 +444,7 @@ formation_highlight = function(slide_id){
   $(selected_formation).show();
 
   // update previous_formation
-  previous_formation = "#formation" + slide_id.toString();
+  previous_formation = "formation" + slide_id.toString();
 }
 
 // update formation stubs
@@ -453,5 +491,11 @@ updateSlideImg = function(){
     element.style.top  = ""+offset_Y+"px";
 
     slide.appendChild(element);
+  }
+
+  var first_slide = document.getElementById("frames").childNodes[0];
+  var x = first_slide.getElementsByClassName("redBox")[0];
+  if(x){//Keep first slide undeletable.
+    first_slide.removeChild(x);
   }
 }

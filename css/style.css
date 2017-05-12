@@ -104,7 +104,7 @@ a {
     margin: auto;
     margin-top: 20px;
     padding-left: 20px;
-    height: 150px;
+    height: 175px;
     width: 1380px;
     border: 1px solid #537E8C;
     overflow-x: auto;
@@ -206,6 +206,7 @@ a {
 .redBox{
   width: 20px;
   height: 20px;
+  z-index: 100;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -319,4 +320,43 @@ a {
 
 .modal-body {
   text-align: center;
+}
+
+/*Inspired by the link below.*/
+/*https://www.w3schools.com/css/css_tooltip.asp*/
+
+/* Tooltip container */
+.tooltip {
+    position: absolute;
+    margin: auto;
+    margin-top: 5px;
+    width: 1400px;
+    height: 40px;
+    top: 7px;
+    left: 840px;
+}
+
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 540px;
+    background-color: black;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    left: 0px;
+    top: 0px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

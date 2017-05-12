@@ -102,8 +102,15 @@ function addBubble(currentTime, formationNumber){
 
 //removes bubble formationNumber, this bubble cannot be restored, so formationNumber bubble will never again exist
 function removeBubble(formationNumber){
+    var frames = document.getElementById("frames"); // formation stub window
+    var frameChildren = frames.childNodes;
+    for(var i = 1;i<frameChildren.length;i++){
+      if("#"+frameChildren[i].id === selected_slide){
+        select_slide(parseInt(frameChildren[i-1].id.substring(14)));
+        break;
+      }
+    }
     $( "#bubble" + formationNumber.toString()).remove();
-    select_slide(formationNumber-1)
 }
 
 
