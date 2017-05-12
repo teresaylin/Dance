@@ -56,13 +56,36 @@ function play_playbar() {
 }
 
 function time() {
-    var percent = width * (document.getElementById('player').currentTime / document.getElementById('player').duration);
+    currentTime = document.getElementById('player').currentTime
+    var percent = width * (currentTime / document.getElementById('player').duration);
+    
+
+
     document.getElementById('playmarker').style.marginLeft = percent + "px";
+
+    var bubbleDivs = document.getElementsByClassName("bubble");
+    //console.log(bubbleDivs)
+    slideid = 0
+    bestval = 100000
+    for(i = 0; i < bubbleDivs.length;i++)
+    {
+        bubbleTime = bubbleDivs[i].getAttribute("time"); 
+        if (currentTime - bubbleTime > 0 && currentTime - bubbleTime < bestval){
+            slideid = bubbleDivs[i].getAttribute("formnumber");
+            bestval = currentTime - bubbleTime
+            console.log(slideid)
+        }
+    }
+
+    formation_highlight(slideid);
+    console.log(slideid.toString());
+    changeBubbleColor(slideid);
 }
 
 function addBubble(currentTime, formationNumber){
     // var barpos = $("#bubblebar").offset();
-    console.log(currentTime)
+
+    console.log(formationNumber)
     var leftMargin = width * currentTime / duration;
     console.log(leftMargin)
     console.log(document.getElementById('player'))
