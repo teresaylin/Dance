@@ -372,8 +372,8 @@ $(document).ready(function() {
     document.getElementById('playmarker').addEventListener('mousedown', mouseDown, false);
 
     // adds a + slide in the bottom #frames div
-    var start = generateAddSlide();
-    document.getElementById("frames").append(start);
+    //var start = generateAddSlide();
+    //document.getElementById("frames").append(start);
     new_slide();
 
     var first_slide = document.getElementById("frames").childNodes[0];
@@ -389,7 +389,7 @@ $(document).on('click',"#newSlide", function(evt){
 
 $(document).on('click',".redBox", function(evt){
   var slide = evt.target.parentNode;
-  if($("#frames")[0].getElementsByClassName("slide").length == 2)return;
+  //if($("#frames")[0].getElementsByClassName("slide").length == 2)return;
   while(slide.className !== "slide"){
     slide = slide.parentNode;
   }
