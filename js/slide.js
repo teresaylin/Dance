@@ -5,32 +5,32 @@ var selected_slide = "#formation_stub0";
 var formationMapping = {};    // maps time to formation id
 var previous_formation = "formation0";
 
-$(document).on('click', '#audioplayerbar', function(evt) {
-  var currentTime = $("#player")[0].currentTime;
-  // find previous formation
-  var prevTime = findPreviousTime(currentTime);
-  previous_formation = formationMapping[prevTime];
-  var prev_slide_id = parseInt(previous_formation.substring(9), 10);
+// $(document).on('click', '#audioplayerbar', function(evt) {
+//   var currentTime = $("#player")[0].currentTime;
+//   // find previous formation
+//   var prevTime = findPreviousTime(currentTime);
+//   previous_formation = formationMapping[prevTime];
+//   var prev_slide_id = parseInt(previous_formation.substring(9), 10);
 
-  // show previous formation and change activated bubble
-  formation_highlight(prev_slide_id);
-  changeBubbleColor(prev_slide_id);
-});
+//   // show previous formation and change activated bubble
+//   formation_highlight(prev_slide_id);
+//   changeBubbleColor(prev_slide_id);
+// });
 
-var prevTime = 0;
-function findPreviousTime(currentTime) {
-  // var prevTime = 0;
-  prevTime = 0;
-  console.log('currentTime: ' + currentTime);
-  for(var time in formationMapping) {
-    console.log(time);
-    if(time > prevTime && time <= currentTime) {
-      console.log('valid');
-      prevTime = time;
-    }
-  }
-  return prevTime;
-}
+// // var prevTime = 0;
+// function findPreviousTime(currentTime) {
+//   var prevTime = 0;
+//   // prevTime = 0;
+//   console.log('currentTime: ' + currentTime);
+//   for(var time in formationMapping) {
+//     console.log(time);
+//     if(time > prevTime && time <= currentTime) {
+//       console.log('valid');
+//       prevTime = time;
+//     }
+//   }
+//   return prevTime;
+// }
 
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
