@@ -102,8 +102,8 @@ function addBubble(currentTime, formationNumber){
 
 //removes bubble formationNumber, this bubble cannot be restored, so formationNumber bubble will never again exist
 function removeBubble(formationNumber){
-    $( "#bubble" + formationNumber.toString()).remove();
     select_slide(formationNumber-1)
+    $( "#bubble" + formationNumber.toString()).remove();
 }
 
 

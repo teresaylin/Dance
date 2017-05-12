@@ -96,18 +96,21 @@ function new_slide() {
   	slide.id = "formation_stub" + slide_id.toString();
   }
 
-  var addSlide = generateAddSlide();
-
   var frames = document.getElementById("frames"); // formation stub window
   var frameChildren = frames.childNodes;          // get formation stubs
   var size = frameChildren.length;
 
-  frames.removeChild(frameChildren[size-1]);
-
-  frames.appendChild(slide);
-  frames.appendChild(addSlide);
-    
-  formation_highlight(slide_id);
+  if($(selected_slide).length){ //This is not the ready call.
+    for(var i = 0;i<size;i++){
+      if("#"+frameChildren[i].id === selected_slide){
+        frames.insertBefore(slide, frameChildren[i].nextSibling);
+      }
+    }
+  }
+  else{//ready call
+    frames.insertBefore(slide, frameChildren[0]);
+  }
+  
     
   (function(slide_id) {
         $("#formation_stub" + slide_id.toString()).click(function() {
@@ -116,7 +119,10 @@ function new_slide() {
   })(slide_id);
 
   var currentTime = document.getElementById('player').currentTime;
-  addBubble(currentTime, slide_id)  
+  addBubble(currentTime, slide_id)
+  formation_highlight(slide_id);
+  changeBubbleColor(slide_id);
+
   slide_id += 1;
 }
 
