@@ -10,7 +10,7 @@ $(document).on('click', '#audioplayerbar', function(evt) {
   // find previous formation
   var prevTime = findPreviousTime(currentTime);
   previous_formation = formationMapping[prevTime];
-  var prev_slide_id = parseInt(previous_formation.slice(-1), 10)
+  var prev_slide_id = parseInt(previous_formation.substring(9), 10);
 
   // show previous formation and change activated bubble
   formation_highlight(prev_slide_id);
