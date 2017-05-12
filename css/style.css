@@ -1,5 +1,6 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  font: 14px "Open Sans", sans-serif;
 }
 
 a {
@@ -292,10 +293,28 @@ a {
   top: 200px;
 }
 
-.modal-title {
-  font-size: 25px;
+.modal-title#main {
+  width: 100%;
+  font-size: 35px;
+  font-family: 'Courgette', cursive;
+  padding-bottom: 5px;
+  padding-left: 148px;
+  color: rgba(61, 56, 214, 0.8);
+}
+
+.modal-title#description {
+  font-size: 14px;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
+  color: rgba(144, 140, 140, 0.72);
+}
+
+.modal-title#chooseSong {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  padding-bottom: 10px;
+  color: rgba(61, 56, 214, 0.8);
 }
 
 .modal-body {

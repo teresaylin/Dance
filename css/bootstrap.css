@@ -36,6 +36,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-family: "Open Sans", sans-serif;
 }
 .btn:focus,
 .btn:active:focus,
@@ -73,7 +74,7 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #333333;
+  color: rgba(51, 51, 51, 0.75);
   background-color: #ffffff;
   border-color: #cccccc;
 }

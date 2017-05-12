@@ -23,10 +23,12 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <p class="modal-title">Choose a song to upload!</p>
+          <p class="modal-title" id="main">Welcome to Dance!</p>
+          <p class="modal-title" id="description">an app to help choreographers create formations quickly</p>
         </div>
         <div class="modal-body">
-          <label class="btn btn-default btn-file">
+            <p class="modal-title" id="chooseSong">Choose a song to upload</p>
+            <label class="btn btn-default btn-file">
             Browse <input id="uploadfile" type="file" onChange="chooseFile()" style="display: none;">
             </label>
             <div id="fileName"></div>
