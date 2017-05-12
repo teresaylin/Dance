@@ -348,8 +348,8 @@ $(document).on('click',".redBox", function(evt){
 
 
   if(('#'+old_slide).valueOf() === selected_slide.valueOf()){
-    selected_slide = $("#frames")[0].getElementsByClassName("slide")[0].id;
-    $('#'+selected_slide).css('border', '3px solid #537E8C');
+    selected_slide = "#"+$("#frames")[0].getElementsByClassName("slide")[0].id;
+    $(selected_slide).css('border', '3px solid #537E8C');
   }
 });
 
