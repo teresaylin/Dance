@@ -2,6 +2,29 @@ var slide_id = 0;
 var selected_formation = "#formation0";
 var selected_slide = "#formation_stub0";
 
+var formationMapping = {};    // maps time to formation id
+var previous_formation = "#formation0";
+
+$(document).on('click', '#audioplayerbar', function(evt) {
+  var currentTime = $("#player")[0].currentTime;
+  // find previous formation
+  var prevTime = findPreviousTime(currentTime);
+  previous_formation = formationMapping[prevTime];
+
+  // show previous formation
+  formation_highlight(parseInt(previous_formation.slice(-1), 10));
+});
+
+function findPreviousTime(currentTime) {
+  var prevTime = 0;
+  for(var time in formationMapping) {
+    if(time > prevTime && time <= currentTime) {
+      prevTime = time;
+    }
+  }
+  return prevTime;
+}
+
 function generateSlideStub(){
 	var slide = document.createElement("DIV");
 	slide.className = "slide";
@@ -16,6 +39,12 @@ function generateNewFormation() {
     newFormation.id = "formation" + slide_id.toString();
     newFormation.className = "formation-screen";
     $("#formation-pane").append(newFormation);
+
+    // store in mapping
+    var currentTime = $("#player")[0].currentTime;
+    formationMapping[currentTime] = "formation" + slide_id.toString();
+    // update previous_formation
+    previous_formation = "formation" + slide_id.toString();
 
     if (slide_id != 0) {
         var children = $(selected_formation).children();
@@ -366,6 +395,9 @@ formation_highlight = function(slide_id){
   $(selected_formation).hide();
   selected_formation = "#formation" + slide_id.toString();
   $(selected_formation).show();
+
+  // update previous_formation
+  previous_formation = "#formation" + slide_id.toString();
 }
 
 // update formation stubs
