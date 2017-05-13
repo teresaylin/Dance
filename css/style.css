@@ -11,6 +11,13 @@ a {
     margin: auto;
     height: 50px;
     padding-bottom: 3px;
+    position: relative;
+}
+
+#logo {
+  position: absolute;
+  left: 10px;
+  height: 50px;
 }
 
 #main {
@@ -93,6 +100,7 @@ a {
 
 #frames {
     margin: auto;
+    margin-left: 9px;
     margin-top: 20px;
     padding-left: 20px;
     height: 160px;
